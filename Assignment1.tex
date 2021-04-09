@@ -69,6 +69,7 @@
 Prove the K\"onig theorem: Let $G$ be bipartite, then cardinality of maximum matching = cardinality of minimum vertex cover.
 \end{exercise}
 
+
 \begin{exercise}
 Consider the algorithm \textbf{Negative-Dijkstra} for computing shortest paths through graphs with negative edge weights (but without negative cycles)
 \begin{algorithm}[htb]
@@ -86,6 +87,7 @@ Note that \textbf{Negative-Dijkstra} shifts all edge weights to be non-negative(
 Prove or Disprove: \textbf{Negative-Dijkstra} computes single-source shortest paths correctly in graphs with negative edge weights. To prove the algorithm correct, show that for all $u\in V$ the shortest $s-u$ path in the original graph is in $T$. To disprove, exhibit a graph with negative edges, with no negative cycles where \textbf{Negative-Dijkstra} outputs the wrong "shortest" paths, and explain why the algorithm fails.
 \end{exercise}
 
+
 \begin{exercise}
 Consider a weighted, directed graph $G$ with $n$ vertices and $m$ edges that have integer weights. A graph walk is a sequence of
 not-necessarily-distinct vertices $v_1,v_2,\ldots,v_k$ such that each pair of consecutive vertices $v_i,v_{i+1}$ are connected by an edge. This is similar to a path, except a walk can have repeated vertices and edges. The length of a walk in a weighted graph is the sum of the weights of the edges in the walk. Let $s,t$ be given vertices in the graph, and $L$ be a positive integer. We are interested counting the number of walks from $s$ to $t$ of length exactly $L$.
@@ -96,10 +98,14 @@ Describe an algorithm that computes the number of graph walks from $s$ to $t$ of
 \end{itemize}
 \end{exercise}
 \newpage
+
+
 \begin{exercise}
 The diameter of a connected, undirected graph $G=(V,E)$ is the length (in number of edges) of the longest shortest path between two nodes. Show that is the diameter of a graph is $d$ then there is some set $S\subseteq V$ with $|S|\leq n/(d-1)$ such that removing the vertices in $S$ from the graph would break it into several disconnected pieces.
 
 \end{exercise}
+
+
 
 \begin{exercise}
 Let $G$ be a $n$ vertices graph. Show that if every vertex in $G$ has degree at least $n/2$, then $G$ contains a Hamiltonian path.
@@ -109,6 +115,8 @@ Let $G$ be a $n$ vertices graph. Show that if every vertex in $G$ has degree at 
 Show how to find a minimal cut of a graph (not only the cost of minimum cut, but also the set of edges in the cut).
 \end{exercise}
 
+
+
 \begin{exercise}
 Let $G(V,E)$ be a connected undirected graph with a weight $w(e)>0$ for each edge $e\in E$. For any path $P_{u,v}=<u,v_1,v_2,\ldots,v_r,v>$ between two vertices $u$ and $v$ in $G$,let $\beta(P_{u,v})$ denote the maximum weight of an edge in $P_{u,v}$. We refer to $\beta(P_{u,v})$ as the \textbf{bottleneck weight} of $P_{u,v}$. Define
 \begin{displaymath}
@@ -117,9 +125,13 @@ Let $G(V,E)$ be a connected undirected graph with a weight $w(e)>0$ for each edg
 Give a polynomial algorithm to find $\beta^*(u,v)$ for each pair of vertices $u$ and $v$ in $V$ and a proof of the correctness of the algorithm.
 \end{exercise}
 
+
+
 \begin{exercise}
 Let $G=(V,E)$ be a directed graph. Give a linear-time algorithm that given $G$, a node $s\in V$ and an integer $k$ decides whether there is a walk in $G$ starting at $s$ that visits at least $k$ distinct nodes.
 \end{exercise}
+
+
 
 \begin{exercise}
 \textbf{Minimum Bottleneck Spanning Tree}: Given a connected graph $ G $ with positive edge costs, find a
