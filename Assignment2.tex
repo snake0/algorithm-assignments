@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage{times}
+\usepackage{a4wide}
+\usepackage{latexsym}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ifthen}
+\usepackage{stmaryrd}
+\usepackage{algorithm}
+%\usepackage{algorithmic}
+\usepackage{algpseudocode}
+\usepackage{graphics}
+\usepackage{epsfig}
+%\usepackage{ramacros}
+
+\addtolength{\textwidth}{20mm}
+\addtolength{\oddsidemargin}{-10mm}
+\addtolength{\textheight}{18mm}
+\addtolength{\topmargin}{-9mm}
+
+\newcounter{exercise}
+\setcounter{exercise}{0}
+\newcommand{\exercise}{
+        \addtocounter{exercise}{1}
+        \vspace{0.2in}
+        \noindent
+        {\bf \theexercise .}
+        }
+
+\newcommand{\REMARK}[1]{}
+
+
+\newcommand{\NEWPART}{\vspace{.1in}
+              \noindent}
+
+\newcommand{\<}{
+    \langle}
+
+\renewcommand{\>}{
+    \rangle}
+
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+\pagestyle{plain} \pagenumbering{arabic}
+
+\title{{\bf Assignment 2} \\ {\large Deadline: }}
+
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+%{\large \noindent
+%\begin{tabular}{lcl}
+%{Jan 17 2007}.
+%\end{tabular}
+%}
+
+{\large
+
+
+
+
+
+\begin{exercise}
+\textsf{STING SAT} is the following problem: given a set of clauses(each a disjunction of literals) and an integer $k$, find a satisfying assignment in which at most 
+$k$ variables are true, if such an assignment exists. Prove that \textsf{STING SAT} is NP-complete.
+\end{exercise}
+
+\begin{exercise}
+You are given a directed graph $G=(V,E)$ with weights we on its edges $e\in E$. The weights can be negative or positive. The \textsf{ZERO-WEIGHT-CYCLE PROBLEM} is to decide if there is a simple cycle in $G$ so that the sum of the edge weights on this cycle is exactly $0$. Prove that this problem is NP-complete.
+\end{exercise}
+
+\begin{exercise}
+Show that \textsf{INDEPENDENT SET PROBLEM} is NP-hard even graphs of maximum degree $3$.
+\end{exercise}
+
+\begin{exercise}
+For your new startup company, Uber for algorithms, you are trying to assign projects to employees. You have a set $P$ of $n$ projects and a set of $E$ of $m$ employees. Each employee $e$ can only work on one project, and each project $p\in P$ has $s$ subset $E_p\subseteq E$ of employees that must be assigned to $p$ to complete $p$. The decision problem we want to solve is whether we can assign the employees to projects such that we can complete(at least) $k$ projects.
+\begin{itemize}
+\item Give a straightforward algorithm that checks whether any subset of $k$ projects can be completed to solve the decisional problem. Analyze its time complexity in terms of $m,n$ and $k$.
+\item Show that the problem in NP-hard via a reduction from 3D-matching.
+\end{itemize}
+\end{exercise}
+
+\begin{exercise}
+Let $d\in \mathbb{N}$. The $d$-\textsf{COLORABILITY PROBLEM} is to decide whether a given graph $G=(V,E)$ can be colored by $d$ colors. i.e., whether there exists a function $f:V\rightarrow \{1,2,\ldots,d\}$ such that for every $u,v\in V$ with $(u,v)\in E$ we have $f(u)\neq f(v)$. Formulate  $d$-\textsf{COLORABILITY} as a search problem. Give a reduction from $4$-\textsc{COLORABILITY} to $7$-\textsf{COLORABILITY}.
+\end{exercise}
+
+\begin{exercise}
+In the \textsf{MAX CUT} problem, we are given an undirected graph $G$ and an integer $K$ and have to decide whether there is a subset of vertices $S$ such that there are at least $K$ edges that have one endpoint in $S$ and one endpoint in $\bar{S}$. Prove that this problem is NP-complete.
+\end{exercise}
+
+\begin{exercise}
+Let \textsf{QUADEQ} be the language of all satisfiable sets of \textit{quadratic equations} over $0/1$ variables(a quadratic equations over $u_1,\ldots,u_n$ has the form $\sum_{i,j\in[n]}a_{i,j}u_iu_j=b$)where addition is modulo $2$. Show that \textsf{QUADEQ} is NP-complete.
+\end{exercise}
+
+\begin{exercise}
+In a typical auction of $n$ items, the auctioneer will sell the $i$th item to the person that gave it the highest bid. However, sometimes the items sold are related to one another(e.g., think of lots of land that may be adjacent to one another)and so people may be willing to pay a high price to get, say, the three items $\{2,5,17\}$, but only if they get all of them together. In this case, deciding what to sell to whom might not be an easy task. The \textsf{COMBINATORIAL AUCTION PROBLEM} is to decide, given numbers $n,k$, and a list of pairs $\{(S_i,x_i)\}^m_{i=1}$ where $S_i$ is a subset of $[n]$ and $x_i$ is an integer, whether there exist disjoint sets $S_{i_1},\ldots,S_{i_l}$ such that $\sum_{j=1}^lx_{i_j}\geq k$. That is, if $x_i$ is the amount a bidder is willing to pay for the set $S_i$, then the problem is to decide if the auctioneer can sell items and get a revenue of at least $k$, under the obvious condition that he can't sell the same item twice. Prove that \textsf{COMBINATORIAL AUCTION} is NP-complete.
+\end{exercise}
+
+\end{document}

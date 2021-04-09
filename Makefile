@@ -33,5 +33,6 @@ cleanall :
 	-@rm -f $(TEX_DIR)/*.aux 2> /dev/null || true
 
 push :
-	git commit -am "make push"
-	git push
+	-git add .
+	-git commit -am "make push"
+	-git push
