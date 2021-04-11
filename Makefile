@@ -9,7 +9,7 @@ LATEXMK_OPT_BASE = -xelatex -gg -silent
 LATEXMK_OPT = $(LATEXMK_OPT_BASE) -f
 LATEXMK_OPT_PVC = $(LATEXMK_OPT_BASE) -pvc
 
-all: $(THESIS1).pdf $(THESIS2).pdf
+all: $(THESIS1).pdf
 
 .PHONY : all cleanall pvc view wordcount git zip
 # *.bib elegantpaper.cls elegantpaper.cfg 
