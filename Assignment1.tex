@@ -79,7 +79,7 @@ Prove the K\"onig theorem: Let $G$ be bipartite, then cardinality of maximum mat
 
 \item We define $L$ to be the left part of $G=(V,E)$ and $R$ to be the right part, and suppose we have $M$ to be the maximum matching. Start from a vertex in $R$ that is not a vertex of any edge in $M$, we go through a path (not in $M$) $\rightarrow$ (in $M$) $\rightarrow$  (not in $M$) $\rightarrow$ (in $M$) ... until the path cannot continue(alternating path). 
 
-\item \textbf{All vertexes in this path } form a vertex set $U$. \textbf{All edges in this path} form a edge set $P$. This path starts at a vertex in $R$ and ends at a vertex in $R$. Firstly we prove that $m=(L \cap U) \cup (R \setminus U)$ is a \textbf{vertex cover}.
+\item \textbf{All vertices in this path } form a vertex set $U$. \textbf{All edges in this path} form a edge set $P$. This path starts at a vertex in $R$ and ends at a vertex in $R$. Firstly we prove that $m=(L \cap U) \cup (R \setminus U)$ is a \textbf{vertex cover}.
 
 \item We prove by contradiction. Suppose $e \in E$'s right vertex $r$ is in $R\cap U$ and left vertex $l$ is in $L\setminus U$. $e\notin M$ because it shares a vertex $r\in R\cap U$ with an edge $f\in M \cap P$. Then, since $e \notin M$, we have a path from $f$ to $e$ that becomes a part of an alternating path, which is a contradiction.
 
@@ -174,9 +174,9 @@ Let $G$ be a $n$ vertices graph. Show that if every vertex in $G$ has degree at 
       \end{figure}
 
     \begin{itemize}
-        \item Firstly, we prove that $G=(V,E)$ must be \textbf{connected} by contradiction. Suppose $V_1$ and $V_2$ are the two sets of disconnected vertexes in $V$ and $|V_1|+|V_2|=|V|=n$. WLOG, $|V_1| \leq n/2 \leq |V_2|$. Then, for two vertexes $v_1,v_2 \in V_1$, we have $deg(v_1)+deg(v_2) \leq (n/2-1)*2 < n$, which is a contradiction.
+        \item Firstly, we prove that $G=(V,E)$ must be \textbf{connected} by contradiction. Suppose $V_1$ and $V_2$ are the two sets of disconnected vertices in $V$ and $|V_1|+|V_2|=|V|=n$. WLOG, $|V_1| \leq n/2 \leq |V_2|$. Then, for two vertices $v_1,v_2 \in V_1$, we have $deg(v_1)+deg(v_2) \leq (n/2-1)*2 < n$, which is a contradiction.
         
-        \item Suppose path $P=v_0 v_1 ... v_p(p\leq n-1)$ is the \textbf{longest} path that does not go through a same vertex more than once. Suppose $v_{i_0},v_{i_1},...,v_{i_k}$ are all vertexes adjacent to $v_0$, then they are all on path $P$ and $k\leq p$, \textbf{or} path $v_{i_x}v_0v_1...v_p(0\leq x\leq k)$ is longer than $P$, which is a contradiction. Thus, $deg(v_0)=k+1$.
+        \item Suppose path $P=v_0 v_1 ... v_p(p\leq n-1)$ is the \textbf{longest} path that does not go through a same vertex more than once. Suppose $v_{i_0},v_{i_1},...,v_{i_k}$ are all vertices adjacent to $v_0$, then they are all on path $P$ and $k\leq p$, \textbf{or} path $v_{i_x}v_0v_1...v_p(0\leq x\leq k)$ is longer than $P$, which is a contradiction. Thus, $deg(v_0)=k+1$.
         
         \item Also, at least one of $v_{i_0},v_{i_1},...,v_{i_k} (k\leq p)$ is adjacent to $v_p$. \textbf{Or}, $deg(v_p)\leq p-(k+1)\implies deg(v_0)+deg(v_p)\leq k+1+(p-(k+1))=p\leq n-1$, which contradicts with $deg(u)+deg(v) \geq n$. Thus, $\exists v_b$ on path $P$ that is both adjacent to $v_0$ and $v_p$. Since $v_b$ and $v_{b+1}$ are adjacent, so we have a Hamiltonian cycle $v_0 ... v_b v_p ... v_{b+1} v_0$ in Figure \ref{fig:3}, which has a length of $p+1$.
         
@@ -193,11 +193,11 @@ Let $G$ be a $n$ vertices graph. Show that if every vertex in $G$ has degree at 
 Show how to find a minimal cut of a graph (not only the cost of minimum cut, but also the set of edges in the cut).
 \end{exercise}
 
-\textbf{Solution:}
+\textbf{Solution1:}
 
     \begin{itemize}
-        \item Let $G=(V,E)$ be a weighted undirected graph. For two vertexes $s,t\in V$, there are two possible situations: global minimum cut of $G$ is also $s-t$ min-cut, or $s$ and $t$ belong to the same side of the global min-cut.
-        \item In the latter situation, the global min-cut can be found by merging $s$ and $t$. $G$ becomes $G'=G\setminus \{s,t\}\cup \{st\}$, where $st$ is a vertex representing merged $s$ and $t$. If edge $s-t\in E$, then it disappears. For a vertex $v\in V$ that have an edge to both $s$ and $t$, then $w(v,st)=w(v,s)+w(v,t)$. Run the algorithm recursively on $G'$, and the min-cut of $G'$ is equal to that of $G$.
+        \item Let $G=(V,E)$ be a weighted undirected graph. For two vertices $s,t\in V$, there are two possible situations: global minimum cut of $G$ is also $s-t$ min-cut, or $s$ and $t$ belong to the same side of the global min-cut.
+        \item In the latter situation, the global min-cut can be found by merging $s$ and $t$. $G$ becomes $G'=G\setminus \{s,t\}\cup \{st\}$, where $st$ is a vertex representing merged $s$ and $t$. If edge $s-t\in E$, then it disappears. For a vertex $v\in V$ that have an edge to both $s$ and $t$, then $w(v,st)=w(v,s)+w(v,t)$. Return the cut-set of the final state. Run the algorithm recursively on $G'$, and the min-cut of $G'$ is equal to that of $G$.
         
     \end{itemize}
 \begin{algorithm}[htb]
@@ -210,21 +210,29 @@ Show how to find a minimal cut of a graph (not only the cost of minimum cut, but
                 \State where $w(A,y)$ is the sum of the weights of all the edges between A and y.
                 \State $S\leftarrow S\cup \{z\}$
                 \State shrink $G$ by merging the two vertices $(s, t)$ added last.
+                \State
+                \Return \{cut-of-phase, cut-set\}=$w(A, last-two-vertices)$, cut-set
             \EndWhile
-            \Return 
+            
         \EndProcedure
         \leavevmode\newline
         \Procedure{MinCut}{$G=(V,E),a$}
             \While{$|V| > 1$}
-                \State $m\leftarrow MinCutPhase(G=(V,E),a)$
-                \If{$mincut > m$}
-                    \State $mincut \leftarrow m$
+                \State \{cut-of-phase,\ cut-set\}$\leftarrow MinCutPhase(G=(V,E),a)$
+                \If{$mincut > $cut-of-phase}
+                    \State $mincut \leftarrow\ $cut-of-phase
+                    \State $mincutset \leftarrow\ $cut-set
                 \EndIf
             \EndWhile
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
 
+\textbf{Solution2:}
+\begin{itemize}
+    \item Let vertex $s$ to be the source, we run Ford-Fulkerson Algorithm on $G$, and remove all edges that has the max flow to get $G'$.
+    \item Run DFS to traverse $G'$, mark all visited vertex to be in $V' \subseteq V$. Then all edges between vertex sets $V'$ and $V\setminus V'$ form the minimum cut.
+\end{itemize}
 
 
 \begin{exercise}
@@ -234,13 +242,13 @@ Let $G(V,E)$ be a connected undirected graph with a weight $w(e)>0$ for each edg
 \end{displaymath}
 Give a polynomial algorithm to find $\beta^*(u,v)$ for each pair of vertices $u$ and $v$ in $V$ and a proof of the correctness of the algorithm.
 \end{exercise}
-\begin{proof} 
-    \leavevmode\newline
+
+\textbf{Solution:}
     \begin{itemize}
-        \item
-        \item
+        \item We say a \textbf{minimum bottleneck spanning tree (MBST)} is a spanning tree that minimizes the most expensive edge. First we prove that \textbf{MST} must be a MBST. If not, consider the most expensive edge $e_1$ of MST and most expensive edge $e_2$ of MBST, we have $w(e_1)>w(e_2)$. Then, we replace $e_1$ from MST with $e_2$, then we have a spanning tree that has smaller weight than MST, which is a contradiction.
+        \item Similarly, we can prove by contradiction that a minimum bottleneck path must be on \textbf{MST}. So, we first get MST by running \textbf{Prim Algorithm}. Then, for each pair of vertices $u$ and $v$, we do a DFS from $u$ to $v$ to find the minimum bottleneck path, then we get $\beta^*(u,v)$.
     \end{itemize}
-\end{proof}
+
 
 
 
@@ -269,7 +277,8 @@ spanning tree that {minimizes the most expensive edge}.
         \item Suppose we need to find an \textbf{MBST} (Minimum Bottleneck Spanning Tree) in a undirected, connected, positive edge-weighted graph $G=(V,E)$. We have Camerini's Algorithm to find such a MBST in $O(n)$ time, which works as follows.
         \item Find the \textbf{median} edge weight $w_m$ in $E$, then partition $E$ into $E_1=\{e\in E \mid w(e) > w_m\}$ and $E_2=\{e\in E \mid w(e) \leq w_m\}$.
         \item Define $F$ to be the spanning tree forest of $E_2$. If $|F|=1$ then run the former step on $B$. 
-        \item Else, contract each connected component in $B$ to a single vertex. Create a new graph by using all vertexes from the contraction ($V'$), and all edges in $A$ that connects the connected components in $B$ ($E'$). We have $|V'|=|F|$, $G'=(V',E')$, MBST is $F \cup MBST(G')$.
+        \item Else, contract each connected component in $B$ to a single vertex. Create a new graph by using all vertices from the contraction ($V'$), and all edges in $A$ that connects the connected components in $B$ ($E'$). We have $|V'|=|F|$, $G'=(V',E')$, MBST is $F \cup MBST(G')$.
+        \item This algorithm works in $O(E/2)+O(E/4)+O(E/8)+...=O(E)$ time.
     \end{itemize}
     \begin{algorithm}[htb]
         \caption{Camerini's Algorithm}
