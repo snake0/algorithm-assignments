@@ -77,7 +77,7 @@ Prove the K\"onig theorem: Let $G$ be bipartite, then cardinality of maximum mat
     \leavevmode\newline
 \begin{itemize}
 
-\item We define $L$ to be the left part of $G=(V,E)$ and $R$ to be the right part, and suppose we have $M$ to be the maximum matching. Start from a vertex in $R$ that is not a vertex of any edge in $M$, we go through a path (not in $M$) $\rightarrow$ (in $M$) $\rightarrow$  (not in $M$) $\rightarrow$ (in $M$) ... until the path cannot continue(alternating path). 
+\item We define $L$ to be the left part of $G=(V,E)$ and $R$ to be the right part, and suppose we have $M$ to be the maximum matching. Start from a vertex in $R$ that is not a vertex of any edge in $M$, we go through a path (not in $M$) $\rightarrow$ (in $M$) $\rightarrow$  (not in $M$) $\rightarrow$ (in $M$) $\ldots$ until the path cannot continue(alternating path). 
 
 \item \textbf{All vertices in this path } form a vertex set $U$. \textbf{All edges in this path} form a edge set $P$. This path starts at a vertex in $R$ and ends at a vertex in $R$. Firstly we prove that $m=(L \cap U) \cup (R \setminus U)$ is a \textbf{vertex cover}.
 
@@ -103,7 +103,6 @@ Consider the algorithm \textbf{Negative-Dijkstra} for computing shortest paths t
 \Return weights of $T$ in the original $G$;
 \end{algorithmic}
 \end{algorithm}
-\newpage
 Note that \textbf{Negative-Dijkstra} shifts all edge weights to be non-negative(by shifting all edge weights by the smallest original value) and runs in $O(m+\log n)$ time.\\
 Prove or Disprove: \textbf{Negative-Dijkstra} computes single-source shortest paths correctly in graphs with negative edge weights. To prove the algorithm correct, show that for all $u\in V$ the shortest $s-u$ path in the original graph is in $T$. To disprove, exhibit a graph with negative edges, with no negative cycles where \textbf{Negative-Dijkstra} outputs the wrong "shortest" paths, and explain why the algorithm fails.
 \end{exercise}
@@ -133,14 +132,44 @@ not-necessarily-distinct vertices $v_1,v_2,\ldots,v_k$ such that each pair of co
 Describe an algorithm that computes the number of graph walks from $s$ to $t$ of length exactly $L$ in $O((n+m)L)$ time. Prove correctness and analyze running time.
 \end{itemize}
 \end{exercise}
-\textbf{Solution:}
-    \leavevmode\newline
+
+\textbf{Solution:} We use Dynamic Programming to calculate the number of walks of length exactly $L$. 
     \begin{itemize}
-        \item
-        \item
+        \item Define $nw(v,l)$ to be the number of walks from vertex $s$ to $v$ of length exactly $l$ ($nw$ stands for \textbf{N}umber of \textbf{W}alks). We need to calculate $nw(t,L)$, where
+        \item $nw(v,l)=\sum\limits_{\{u\mid (u,v)\in E,w(u,v)\leq l\}}nw(u,l-w(u,v))$
     \end{itemize}
 
+\begin{algorithm}[htb]
+    \label{algo:sss}
+    \caption{Number of walks from $s$ to $t$ of length exactly $L$}
+    \begin{algorithmic}[1]
+        \label{algo:1}
+        \For{$v\in V$}
+            \For{$l$ from 0 $\rightarrow$ $L$}
+                \State $nw(v,l)\leftarrow 0$
+            \EndFor
+        \EndFor
+        
+        \State
+        \State $nw(s,0)\leftarrow 1$
+        
+        \label{algo:3}
 
+        \For{$l$ from 0 $\rightarrow$ $L$}
+        \label{algo:2}
+            \For{$v\in V$}
+                \For{$u\in \{u\mid (u,v)\in E,w(u,v)\leq l\}$}
+                    \State $nw(v,l)\leftarrow nw(v,l)+nw(u,l-w(u,v))$ 
+                \EndFor
+            \EndFor
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{itemize}
+    \item For $G$ with \textbf{zero weight} edges, we remove all edges in $E$ that has positive weight and get $G'$. On line \ref{algo:1}, when setting the initial value of matrix $w(v,l)$, instead of setting them all to $0$, we first run the algorithm on $G'$ to initialize the matrix $w(v,l)$.
+    \item On line \ref{algo:2}, it traverses \textbf{no more than} all vertices and edges, which needs $O(n+m)$ time. On line \ref{algo:3}, it runs line \ref{algo:2} for $L$ times. Finally, algorithm \ref{algo:sss} runs in $O((n+m)L)$ time.
+\end{itemize}
 
 
 
@@ -166,21 +195,23 @@ We use \textbf{Menger's theorem:} Let $G$ be a finite undirected graph and $x$ a
 Let $G$ be a $n$ vertices graph. Show that if every vertex in $G$ has degree at least $n/2$, then $G$ contains a Hamiltonian path.
 \end{exercise}
 \begin{proof} This is \textbf{Dirac's theorem}, which is weaker than Ore's theorem. Now we just need to prove \textbf{Ore's theorem}: Let $G$ be a (finite and simple) graph with $n \geq 3$ vertices. If $deg(u)+deg(v) \geq n$ for every pair of distinct non-adjacent vertices $u$ and $v$ of $G$, then $G$ is Hamiltonian.
+    
     \begin{figure}[!htp]
         \centering
         \includegraphics[width=0.6\textwidth]{img/3.pdf}
         \caption{Ore's theorem}
         \label{fig:3}
       \end{figure}
-
     \begin{itemize}
         \item Firstly, we prove that $G=(V,E)$ must be \textbf{connected} by contradiction. Suppose $V_1$ and $V_2$ are the two sets of disconnected vertices in $V$ and $|V_1|+|V_2|=|V|=n$. WLOG, $|V_1| \leq n/2 \leq |V_2|$. Then, for two vertices $v_1,v_2 \in V_1$, we have $deg(v_1)+deg(v_2) \leq (n/2-1)*2 < n$, which is a contradiction.
         
-        \item Suppose path $P=v_0 v_1 ... v_p(p\leq n-1)$ is the \textbf{longest} path that does not go through a same vertex more than once. Suppose $v_{i_0},v_{i_1},...,v_{i_k}$ are all vertices adjacent to $v_0$, then they are all on path $P$ and $k\leq p$, \textbf{or} path $v_{i_x}v_0v_1...v_p(0\leq x\leq k)$ is longer than $P$, which is a contradiction. Thus, $deg(v_0)=k+1$.
+        \item Suppose path $P=v_0 v_1 \ldots v_p(p\leq n-1)$ is the \textbf{longest} path that does not go through a same vertex more than once. Suppose $v_{i_0},v_{i_1},\ldots,v_{i_k}$ are all vertices adjacent to $v_0$, then they are all on path $P$ and $k\leq p$, \textbf{or} path $v_{i_x}v_0v_1\ldots v_p(0\leq x\leq k)$ is longer than $P$, which is a contradiction. Thus, $deg(v_0)=k+1$.
         
-        \item Also, at least one of $v_{i_0},v_{i_1},...,v_{i_k} (k\leq p)$ is adjacent to $v_p$. \textbf{Or}, $deg(v_p)\leq p-(k+1)\implies deg(v_0)+deg(v_p)\leq k+1+(p-(k+1))=p\leq n-1$, which contradicts with $deg(u)+deg(v) \geq n$. Thus, $\exists v_b$ on path $P$ that is both adjacent to $v_0$ and $v_p$. Since $v_b$ and $v_{b+1}$ are adjacent, so we have a Hamiltonian cycle $v_0 ... v_b v_p ... v_{b+1} v_0$ in Figure \ref{fig:3}, which has a length of $p+1$.
+        \item Also, at least one of $v_{i_0},v_{i_1},\ldots,v_{i_k} (k\leq p)$ is adjacent to $v_p$. \textbf{Or}, $deg(v_p)\leq p-(k+1)\implies deg(v_0)+deg(v_p)\leq k+1+(p-(k+1))=p\leq n-1$, which contradicts with $deg(u)+deg(v) \geq n$. Thus, $\exists v_b$ on path $P$ that is both adjacent to $v_0$ and $v_p$. Since $v_b$ and $v_{b+1}$ are adjacent, so we have a Hamiltonian cycle $v_0 \ldots v_b v_p \ldots  v_{b+1} v_0$ in Figure \ref{fig:3}, which has a length of $p+1$.
         
-        \item Suppose $p+1 < n$, then $\exists v_m \in G$ is not in path $P$. Since $G$ is \textbf{connected}, $v_m$ can go to a vertex $v_n\in P$ through some path. If $0\leq n\leq b$, then path $v_m ... v_n v_{n-1} ... v_0 v_{b+1} ... v_{p} v_{p-1} ... v_{b} v_{b-1} ... v_{n+1}$ becomes a at least $(p+1)$-long path, which contradicts with the longest path $P$. For $b+1\leq n\leq p$ we have similar contradiction. 
+        \item Suppose $p+1 < n$, then $\exists v_m \in G$ is not in path $P$. Since $G$ is \textbf{connected}, $v_m$ can go to a vertex $v_n\in P$ through some path. If $0\leq n\leq b$, then path
+        \item $v_m \ldots  v_n v_{n-1} \ldots  v_0 v_{b+1} \ldots  v_{p} v_{p-1} \ldots  v_{b} v_{b-1} \ldots  v_{n+1}$ 
+        \item becomes a at least $(p+1)$-long path, which contradicts with the longest path $P$. For $b+1\leq n\leq p$ we have similar contradiction. 
         \item Thus, we have $p+1 \geq n\implies p\geq n-1$, and $p \leq n-1$ since $P \subseteq V$, finally $p=n-1$, which means path $P$ is a Hamiltonian path.
     \end{itemize}
     
@@ -212,13 +243,13 @@ Show how to find a minimal cut of a graph (not only the cost of minimum cut, but
                 \State shrink $G$ by merging the two vertices $(s, t)$ added last.
                 \State
                 \Return \{cut-of-phase, cut-set\}=$w(A, last-two-vertices)$, cut-set
-            \EndWhile
-            
+            \EndWhile      
         \EndProcedure
-        \leavevmode\newline
+        \State
         \Procedure{MinCut}{$G=(V,E),a$}
             \While{$|V| > 1$}
                 \State \{cut-of-phase,\ cut-set\}$\leftarrow MinCutPhase(G=(V,E),a)$
+                \State
                 \If{$mincut > $cut-of-phase}
                     \State $mincut \leftarrow\ $cut-of-phase
                     \State $mincutset \leftarrow\ $cut-set
@@ -251,7 +282,6 @@ Give a polynomial algorithm to find $\beta^*(u,v)$ for each pair of vertices $u$
 
 
 
-
 \begin{exercise}
 Let $G=(V,E)$ be a directed graph. Give a linear-time algorithm that given $G$, a node $s\in V$ and an integer $k$ decides whether there is a walk in $G$ starting at $s$ that visits at least $k$ distinct nodes.
 \end{exercise}
@@ -266,43 +296,42 @@ Let $G=(V,E)$ be a directed graph. Give a linear-time algorithm that given $G$, 
 
 
 
-
 \begin{exercise}
 \textbf{Minimum Bottleneck Spanning Tree}: Given a connected graph $ G $ with positive edge costs, find a
 spanning tree that {minimizes the most expensive edge}.
 \end{exercise}
 
 \textbf{Solution:}
+\begin{algorithm}[htb]
+    \caption{Camerini's Algorithm}
+    \begin{algorithmic}[1]
+        \Procedure{MBST}{$G=(V,E)$}
+        \If{$|E|=1$}
+        \State
+        \Return $E$
+        \EndIf
+        \State
+        \State $E_1=\{e\in E \mid w(e) > w_m\}$, $E_2=\{e\in E \mid w(e) \leq w_m\}$, $A=(E_1, V_1)$, $B=(E_2, V_2)$
+        \State $|F| \leftarrow$ spanning tree (forest) of B
+        \State
+        \If $|F| = 1$
+            \State return MBST$(B)$
+        \Else
+            \State $V'\leftarrow$ contract each connected component in B into a single vertex
+            \State $E'\leftarrow$ edges in A that connect the connected components in B
+            \State
+            \Return $F \cup (V', E')$ 
+        \EndIf
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
     \begin{itemize}
         \item Suppose we need to find an \textbf{MBST} (Minimum Bottleneck Spanning Tree) in a undirected, connected, positive edge-weighted graph $G=(V,E)$. We have Camerini's Algorithm to find such a MBST in $O(n)$ time, which works as follows.
         \item Find the \textbf{median} edge weight $w_m$ in $E$, then partition $E$ into $E_1=\{e\in E \mid w(e) > w_m\}$ and $E_2=\{e\in E \mid w(e) \leq w_m\}$.
         \item Define $F$ to be the spanning tree forest of $E_2$. If $|F|=1$ then run the former step on $B$. 
         \item Else, contract each connected component in $B$ to a single vertex. Create a new graph by using all vertices from the contraction ($V'$), and all edges in $A$ that connects the connected components in $B$ ($E'$). We have $|V'|=|F|$, $G'=(V',E')$, MBST is $F \cup MBST(G')$.
-        \item This algorithm works in $O(E/2)+O(E/4)+O(E/8)+...=O(E)$ time.
+        \item This algorithm works in $O(E/2)+O(E/4)+O(E/8)+\ldots =O(E)$ time.
     \end{itemize}
-    \begin{algorithm}[htb]
-        \caption{Camerini's Algorithm}
-        \begin{algorithmic}[1]
-            \Procedure{MBST}{$G=(V,E)$}
-            \If{$|E|=1$}
-            \State
-            \Return $E$
-            \EndIf
-            \State
-            \State $E_1=\{e\in E \mid w(e) > w_m\}$, $E_2=\{e\in E \mid w(e) \leq w_m\}$, $A=(E_1, V_1)$, $B=(E_2, V_2)$
-            \State $|F| \leftarrow$ spanning tree (forest) of B
-            \State
-            \If $|F| = 1$
-                \State return MBST$(B)$
-            \Else
-                \State $V'\leftarrow$ contract each connected component in B into a single vertex
-                \State $E'\leftarrow$ edges in A that connect the connected components in B
-                \State
-                \Return $F \cup (V', E')$ 
-            \EndIf
-            \EndProcedure
-        \end{algorithmic}
-    \end{algorithm}
 
 
 \end{document}
