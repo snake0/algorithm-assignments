@@ -89,6 +89,8 @@ Prove the K\"onig theorem: Let $G$ be bipartite, then cardinality of maximum mat
 \end{itemize}
 \end{proof}
 
+\newpage
+
 
 \begin{exercise}
 Consider the algorithm \textbf{Negative-Dijkstra} for computing shortest paths through graphs with negative edge weights (but without negative cycles)
@@ -113,16 +115,16 @@ Prove or Disprove: \textbf{Negative-Dijkstra} computes single-source shortest pa
     \centering
     \includegraphics[width=0.5\textwidth]{img/2.pdf}
     \caption{Negative to Non-negative Edges}
-    \label{fig:2}
+    \label{fig:ccc}
   \end{figure}
-See Figure \ref{fig:2}, we shift the graph $G=$ \{$w_{AB}=5,w_{BC}=-10,w_{AC}=2$ \} to $G'=$\{$w_{AB}=15,w_{BC}=0,w_{AC}=12$ \}.
+See Figure \ref{fig:ccc}, we shift the graph $G=$ \{$w_{AB}=5,w_{BC}=-10,w_{AC}=2$ \} to $G'=$\{$w_{AB}=15,w_{BC}=0,w_{AC}=12$ \}.
     \begin{itemize}
         \item Use Dijkstra's Algorithm on $G'$, $A$ is the source vertex. Then the shortest path from $A$ to $C$ is 12, after shifting back, it is -2 ($A\rightarrow C$).
         \item Use Dijkstra's Algorithm on $G$, then the shortest path from $A$ to $C$ is -5 ($A\rightarrow B \rightarrow C$), not -2.
         \item Negative-Dijkstra fails because the \textbf{shifting} operation can shift different \textbf{weight} even for the two paths with the same length. The \textbf{more edges} a path has, the more \textit{shift} it gets. It is unfair.
     \end{itemize}
 
-
+    \newpage
 \begin{exercise}
 Consider a weighted, directed graph $G$ with $n$ vertices and $m$ edges that have integer weights. A graph walk is a sequence of
 not-necessarily-distinct vertices $v_1,v_2,\ldots,v_k$ such that each pair of consecutive vertices $v_i,v_{i+1}$ are connected by an edge. This is similar to a path, except a walk can have repeated vertices and edges. The length of a walk in a weighted graph is the sum of the weights of the edges in the walk. Let $s,t$ be given vertices in the graph, and $L$ be a positive integer. We are interested counting the number of walks from $s$ to $t$ of length exactly $L$.
@@ -136,28 +138,24 @@ Describe an algorithm that computes the number of graph walks from $s$ to $t$ of
 \textbf{Solution:} We use Dynamic Programming to calculate the number of walks of length exactly $L$. 
     \begin{itemize}
         \item Define $nw(v,l)$ to be the number of walks from vertex $s$ to $v$ of length exactly $l$ ($nw$ stands for \textbf{N}umber of \textbf{W}alks). We need to calculate $nw(t,L)$, where
-        \item $nw(v,l)=\sum\limits_{\{u\mid (u,v)\in E,w(u,v)\leq l\}}nw(u,l-w(u,v))$
+        \begin{center} 
+            $nw(v,l)=\sum\limits_{\{u\mid (u,v)\in E,w(u,v)\leq l\}}nw(u,l-w(u,v))$
+        \end{center}
     \end{itemize}
 
 \begin{algorithm}[htb]
     \label{algo:sss}
     \caption{Number of walks from $s$ to $t$ of length exactly $L$}
     \begin{algorithmic}[1]
-        \label{algo:1}
         \For{$v\in V$}
             \For{$l$ from 0 $\rightarrow$ $L$}
                 \State $nw(v,l)\leftarrow 0$
             \EndFor
         \EndFor
-        
         \State
         \State $nw(s,0)\leftarrow  1$
-
         \For{$l$ from 0 $\rightarrow$ $L$}
-        \label{algo:3}
-        
             \For{$v\in V$}
-            \label{algo:2}
                 \For{$u\in \{u\mid (u,v)\in E,w(u,v)\leq l\}$}
                     \State $nw(v,l)\leftarrow nw(v,l)+nw(u,l-w(u,v))$ 
                 \EndFor
@@ -167,11 +165,11 @@ Describe an algorithm that computes the number of graph walks from $s$ to $t$ of
 \end{algorithm}
 
 \begin{itemize}
-    \item For $G$ with \textbf{zero weight} edges, we remove all edges in $E$ that has positive weight and get $G'$. On line \ref{algo:1}, when setting the initial value of matrix $w(v,l)$, instead of setting them all to $0$, we first run the algorithm on $G'$ to initialize the matrix $w(v,l)$.
-    \item On line \ref{algo:2}, it traverses \textbf{no more than} all vertices and edges, which needs $O(n+m)$ time. On line \ref{algo:3}, it runs line \ref{algo:2} for $L$ times. Finally, algorithm \ref{algo:sss} runs in $O((n+m)L)$ time.
+    \item For $G$ with \textbf{zero weight} edges, we remove all edges in $E$ that has positive weight and get $G'$. On line 1, when setting the initial value of matrix $w(v,l)$, instead of setting them all to $0$, we first run the algorithm on $G'$ to initialize the matrix $w(v,l)$.
+    \item On line 9, it traverses \textbf{no more than} all vertices and edges, which needs $O(n+m)$ time. On line 8, it runs line 9 for $L$ times. Finally, this algorithm runs in $O((n+m)L)$ time.
 \end{itemize}
 
-
+\newpage
 
 \begin{exercise}
 The diameter of a connected, undirected graph $G=(V,E)$ is the length (in number of edges) of the longest shortest path between two nodes. Show that is the diameter of a graph is $d$ then there is some set $S\subseteq V$ with $|S|\leq n/(d-1)$ such that removing the vertices in $S$ from the graph would break it into several disconnected pieces.
@@ -183,13 +181,17 @@ The diameter of a connected, undirected graph $G=(V,E)$ is the length (in number
 We use \textbf{Menger's theorem:} Let $G$ be a finite undirected graph and $x$ and $y$ two distinct vertices. Then the size of the minimum edge cut for $x$ and $y$ is equal to the maximum number of pairwise edge-independent paths from $x$ to $y$.
 \begin{itemize}
     \item Suppose $x,y\in G$ is the two ends of the diameter of $G$. According to \textbf{Menger's theorem}, the size of the minimum edge cut $S$ for $x$ and $y$ is equal to the maximum number of pairwise edge-independent paths from $x$ to $y$.
-    \item The maximum number of pairwise edge-independent paths from $x$ to $y$ is $m$, then $m=|S|$, and $m*(d-1)+2\leq n\implies |S|\leq (n-2)/(d-1) \implies |S| < n/(d-1)$, where removing the vertices in $S\subseteq V$ from the graph would break it into \textbf{two} disconnected pieces.
+    \item The maximum number of pairwise edge-independent paths from $x$ to $y$ is $m$, then $m=|S|$, and 
+    \begin{center}
+        $m*(d-1)+2\leq n\implies |S|\leq (n-2)/(d-1) \implies |S| < n/(d-1)$ 
+    \end{center}
+    \item ,where removing the vertices in $S\subseteq V$ from the graph would break it into \textbf{two} disconnected pieces.
 \end{itemize}
 
 \end{proof}
 
 
-
+\newpage
 
 \begin{exercise}
 Let $G$ be a $n$ vertices graph. Show that if every vertex in $G$ has degree at least $n/2$, then $G$ contains a Hamiltonian path.
@@ -200,17 +202,19 @@ Let $G$ be a $n$ vertices graph. Show that if every vertex in $G$ has degree at 
         \centering
         \includegraphics[width=0.6\textwidth]{img/3.pdf}
         \caption{Ore's theorem}
-        \label{fig:3}
+        \label{fig:sssss}
       \end{figure}
     \begin{itemize}
         \item Firstly, we prove that $G=(V,E)$ must be \textbf{connected} by contradiction. Suppose $V_1$ and $V_2$ are the two sets of disconnected vertices in $V$ and $|V_1|+|V_2|=|V|=n$. WLOG, $|V_1| \leq n/2 \leq |V_2|$. Then, for two vertices $v_1,v_2 \in V_1$, we have $deg(v_1)+deg(v_2) \leq (n/2-1)*2 < n$, which is a contradiction.
         
         \item Suppose path $P=v_0 v_1 \ldots v_p(p\leq n-1)$ is the \textbf{longest} path that does not go through a same vertex more than once. Suppose $v_{i_0},v_{i_1},\ldots,v_{i_k}$ are all vertices adjacent to $v_0$, then they are all on path $P$ and $k\leq p$, \textbf{or} path $v_{i_x}v_0v_1\ldots v_p(0\leq x\leq k)$ is longer than $P$, which is a contradiction. Thus, $deg(v_0)=k+1$.
         
-        \item Also, at least one of $v_{i_0},v_{i_1},\ldots,v_{i_k} (k\leq p)$ is adjacent to $v_p$. \textbf{Or}, $deg(v_p)\leq p-(k+1)\implies deg(v_0)+deg(v_p)\leq k+1+(p-(k+1))=p\leq n-1$, which contradicts with $deg(u)+deg(v) \geq n$. Thus, $\exists v_b$ on path $P$ that is both adjacent to $v_0$ and $v_p$. Since $v_b$ and $v_{b+1}$ are adjacent, so we have a Hamiltonian cycle $v_0 \ldots v_b v_p \ldots  v_{b+1} v_0$ in Figure \ref{fig:3}, which has a length of $p+1$.
+        \item Also, at least one of $v_{i_0},v_{i_1},\ldots,v_{i_k} (k\leq p)$ is adjacent to $v_p$. \textbf{Or}, $deg(v_p)\leq p-(k+1)\implies deg(v_0)+deg(v_p)\leq k+1+(p-(k+1))=p\leq n-1$, which contradicts with $deg(u)+deg(v) \geq n$. Thus, $\exists v_b$ on path $P$ that is both adjacent to $v_0$ and $v_p$. Since $v_b$ and $v_{b+1}$ are adjacent, so we have a Hamiltonian cycle $v_0 \ldots v_b v_p \ldots  v_{b+1} v_0$ in Figure \ref{fig:sssss}, which has a length of $p+1$.
         
         \item Suppose $p+1 < n$, then $\exists v_m \in G$ is not in path $P$. Since $G$ is \textbf{connected}, $v_m$ can go to a vertex $v_n\in P$ through some path. If $0\leq n\leq b$, then path
-        \item $v_m \ldots  v_n v_{n-1} \ldots  v_0 v_{b+1} \ldots  v_{p} v_{p-1} \ldots  v_{b} v_{b-1} \ldots  v_{n+1}$ 
+        \begin{center} 
+            $v_m \ldots  v_n v_{n-1} \ldots  v_0 v_{b+1} \ldots  v_{p} v_{p-1} \ldots  v_{b} v_{b-1} \ldots  v_{n+1}$ 
+        \end{center}
         \item becomes a at least $(p+1)$-long path, which contradicts with the longest path $P$. For $b+1\leq n\leq p$ we have similar contradiction. 
         \item Thus, we have $p+1 \geq n\implies p\geq n-1$, and $p \leq n-1$ since $P \subseteq V$, finally $p=n-1$, which means path $P$ is a Hamiltonian path.
     \end{itemize}
@@ -218,7 +222,7 @@ Let $G$ be a $n$ vertices graph. Show that if every vertex in $G$ has degree at 
 \end{proof}
 
 
-
+\newpage
 
 \begin{exercise}
 Show how to find a minimal cut of a graph (not only the cost of minimum cut, but also the set of edges in the cut).
@@ -228,7 +232,11 @@ Show how to find a minimal cut of a graph (not only the cost of minimum cut, but
 
     \begin{itemize}
         \item Let $G=(V,E)$ be a weighted undirected graph. For two vertices $s,t\in V$, there are two possible situations: global minimum cut of $G$ is also $s-t$ min-cut, or $s$ and $t$ belong to the same side of the global min-cut.
-        \item In the latter situation, the global min-cut can be found by merging $s$ and $t$. $G$ becomes $G'=G\setminus \{s,t\}\cup \{st\}$, where $st$ is a vertex representing merged $s$ and $t$. If edge $s-t\in E$, then it disappears. For a vertex $v\in V$ that have an edge to both $s$ and $t$, then $w(v,st)=w(v,s)+w(v,t)$. Return the cut-set of the final state. Run the algorithm recursively on $G'$, and the min-cut of $G'$ is equal to that of $G$.
+        \item In the latter situation, the global min-cut can be found by merging $s$ and $t$. $G$ becomes $G'=G\setminus \{s,t\}\cup \{st\}$, where $st$ is a vertex representing merged $s$ and $t$. If edge $s-t\in E$, then it disappears. For a vertex $v\in V$ that have an edge to both $s$ and $t$, then
+        \begin{center}
+             $w(v,st)=w(v,s)+w(v,t)$
+        \end{center}
+        \item Return the cut-set of the final state. Run the algorithm recursively on $G'$, and the min-cut of $G'$ is equal to that of $G$.
         
     \end{itemize}
 \begin{algorithm}[htb]
@@ -264,7 +272,7 @@ Show how to find a minimal cut of a graph (not only the cost of minimum cut, but
     \item Let vertex $s$ to be the source, we run Ford-Fulkerson Algorithm on $G$, and remove all edges that has the max flow to get $G'$.
     \item Run DFS to traverse $G'$, mark all visited vertex to be in $V' \subseteq V$. Then all edges between vertex sets $V'$ and $V\setminus V'$ form the minimum cut.
 \end{itemize}
-
+\newpage
 
 \begin{exercise}
 Let $G(V,E)$ be a connected undirected graph with a weight $w(e)>0$ for each edge $e\in E$. For any path $P_{u,v}=<u,v_1,v_2,\ldots,v_r,v>$ between two vertices $u$ and $v$ in $G$,let $\beta(P_{u,v})$ denote the maximum weight of an edge in $P_{u,v}$. We refer to $\beta(P_{u,v})$ as the \textbf{bottleneck weight} of $P_{u,v}$. Define
@@ -281,7 +289,7 @@ Give a polynomial algorithm to find $\beta^*(u,v)$ for each pair of vertices $u$
     \end{itemize}
 
 
-
+    \newpage
 \begin{exercise}
 Let $G=(V,E)$ be a directed graph. Give a linear-time algorithm that given $G$, a node $s\in V$ and an integer $k$ decides whether there is a walk in $G$ starting at $s$ that visits at least $k$ distinct nodes.
 \end{exercise}
@@ -294,7 +302,7 @@ Let $G=(V,E)$ be a directed graph. Give a linear-time algorithm that given $G$, 
     \end{itemize}
 
 
-
+    \newpage
 
 \begin{exercise}
 \textbf{Minimum Bottleneck Spanning Tree}: Given a connected graph $ G $ with positive edge costs, find a
@@ -330,7 +338,11 @@ spanning tree that {minimizes the most expensive edge}.
         \item Find the \textbf{median} edge weight $w_m$ in $E$, then partition $E$ into $E_1=\{e\in E \mid w(e) > w_m\}$ and $E_2=\{e\in E \mid w(e) \leq w_m\}$.
         \item Define $F$ to be the spanning tree forest of $E_2$. If $|F|=1$ then run the former step on $B$. 
         \item Else, contract each connected component in $B$ to a single vertex. Create a new graph by using all vertices from the contraction ($V'$), and all edges in $A$ that connects the connected components in $B$ ($E'$). We have $|V'|=|F|$, $G'=(V',E')$, MBST is $F \cup MBST(G')$.
-        \item This algorithm works in $O(E/2)+O(E/4)+O(E/8)+\ldots =O(E)$ time.
+        \item This algorithm works in 
+        \begin{displaymath}
+            O(E/2)+O(E/4)+O(E/8)+\ldots =O(E)
+        \end{displaymath}
+        \item time.
     \end{itemize}
 
 
