@@ -153,11 +153,13 @@ Describe an algorithm that computes the number of graph walks from $s$ to $t$ of
         \State
         \State $nw(s,0)\leftarrow 1$
         
-        \label{algo:3}
+        
 
         \For{$l$ from 0 $\rightarrow$ $L$}
-        \label{algo:2}
+        \label{algo:3}
+        
             \For{$v\in V$}
+            \label{algo:2}
                 \For{$u\in \{u\mid (u,v)\in E,w(u,v)\leq l\}$}
                     \State $nw(v,l)\leftarrow nw(v,l)+nw(u,l-w(u,v))$ 
                 \EndFor
