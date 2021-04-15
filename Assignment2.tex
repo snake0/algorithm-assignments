@@ -93,12 +93,14 @@ You are given a directed graph $G=(V,E)$ with weights we on its edges $e\in E$. 
         \item $u_{i_1}\rightarrow v_{j_1}\rightarrow u_{i_2}\rightarrow v_{j_2}\rightarrow \cdots \rightarrow u_{i_k}\rightarrow v_{j_k} \rightarrow u_{i_1}(1\leq k\leq n)$
         \item which has a weight sum of $\sum\limits_{j=1}^{k}a_{i_j}(1\leq k\leq n)$. This is a subset sum of set $\{a_i\mid i=1,\ldots ,n\}$. Thus, we could reduce the subset sum problem to zero-weight-cycle problem in $O(n)$ (polynomial) time.
     \end{itemize}
-    \begin{figure}[!htp]
-        \centering
-        \includegraphics[width=0.35\textwidth]{img/4.jpg}
-        \caption{Reduction from subset-sum problem}
-        \label{fig:ccc}
-      \end{figure}
+
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[width=0.35\textwidth]{img/4.jpg}
+    \caption{Reduction from subset-sum problem}
+    \label{fig:ccc}
+\end{figure}
+
 \end{proof}
 \newpage
 
@@ -108,19 +110,21 @@ Show that \textsf{INDEPENDENT SET PROBLEM} is NP-hard even graphs of maximum deg
 \begin{proof}
     \leavevmode\newline
     \begin{itemize}
-        \item We reduce the \textbf{3-SAT} problem to \textbf{independent set} problem for a graph $G$ of maximum degree of $3$.
+        \item We reduce the \textbf{3-SAT} problem to \textbf{independent set} problem for a graph $G$.
         \item For each clause in the formula, we use a vertex in $G$ to represent each literal of the clause, and add an edge between each of them. For each pair of opposite vertices between different clauses, add an edge between them. This reduction runs in $O(|V|+|E|)$ (polynomial) time.
         \item For example, Figure \ref{fig:eee} shows $G$ equivalent to formula ($-y$ stands for $\overline{y}$)
         \begin{displaymath}
             (x\vee y \vee z)(x \vee \overline{y})(y \vee \overline{z})(z \vee \overline{x})(\overline{x} \vee \overline{y} \vee \overline{z})
         \end{displaymath}
         \item For each clause $C_i(i=1,\ldots,n)$, we choose a $v_i$ in $G$. If all $v_i$ forms an independent set, then we set the literal to $true$ corresponding to $v_i$ and no opposite literals are set to $true$ at the same time. Thus we reduce \textbf{3-SAT} problem to \textbf{independent set} problem. 
-        \begin{figure}[!htp]
-            \centering
-            \includegraphics[width=0.7\textwidth]{img/5.jpg}
-            \caption{Reduction from 3—SAT problem}
-            \label{fig:eee}
-          \end{figure}
+
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/5.jpg}
+    \caption{Reduction from 3—SAT problem}
+    \label{fig:eee}
+\end{figure}
+
         \item But in this graph, the maximum degree can be larger than $3$. We modify the formula to a \textbf{equivalent} one in the following way: if variable $x$ appears in $k\geq 3$ clauses, then in $G$, vertices corresponding to $x$ may have a degree $\geq 4$. For variable $x$ that appears in $k\geq 3$ clauses, modify the $k\ x$ variables to $x_1,x_2,\ldots,x_k$, and
         \begin{displaymath}
             F'=F\wedge U,U=(x_1\vee \overline{x_2})(x_2\vee \overline{x_3})\ldots(x_k\vee \overline{x_1}),k\geq 3
@@ -168,7 +172,7 @@ Let $d\in \mathbb{N}$. The $d$-\textsf{COLORABILITY PROBLEM} is to decide whethe
     \includegraphics[width=0.45\textwidth]{img/6.jpg}
     \caption{Reduction from 4-COLORABILITY to 7-COLORABILITY}
     \label{ggg}
-  \end{figure}
+\end{figure}
 
 \item See Figure \ref{ggg}, suppose we have a function $f':V'\rightarrow \{1,2,3,4,5,6,7\}$ for the graph $G'$, then we have three different colors for $x,y,z$ (suppose the three colors are $1,2,3$). Since all vertices in $V$ are connected to $x,y,z$, they must have colors different from $1,2,3$, which must be $4,5,6,7$. Thus, we find $f:V\rightarrow \{4,5,6,7\}$ for $G$, and $G$ is 4-COLORABLE.
 
@@ -184,7 +188,7 @@ In the \textsf{MAX CUT} problem, we are given an undirected graph $G$ and an int
     \leavevmode\newline
     \begin{itemize}
         \item Given a set of vertices $S$, we can get the number of edges that have one endpoint in $S$ and one endpoint in $\bar{S}$ in $O(E)$ time by traversing all edges in $G$, and compare the number to $K$. Thus the \textbf{max cut} problem is NP.
-        \item 
+        \item We reduce \textbf{independent set} to \textbf{max cut} to prove NP-complete. 
     \end{itemize}
 \end{proof}
 
@@ -197,7 +201,21 @@ Let \textsf{QUADEQ} be the language of all satisfiable sets of \textit{quadratic
 \begin{proof}
     \leavevmode\newline
     \begin{itemize}
-        \item 
+        \item Firstly, given $0/1$ variables $u_1,\ldots,u_n$, we can test whether equation $\sum_{i,j\in[n]}a_{i,j}u_iu_j=b$ holds in $O(n(n-1)/2)$ time. Thus, \textbf{QUADEQ} is NP.
+        \item Then we reduce \textbf{clique} to \textbf{QUADEQ}. In graph $G=(V,E),V=\{v_1,v_2,\ldots,v_n\}$, let
+        \begin{displaymath}
+        a_{i,j}=\left\{
+            \begin{aligned}
+                0,\ &if\ (v_i,v_j)\notin E \\
+                1,\ &if\ (v_i,v_j)\in E \\
+            \end{aligned}
+            \right.,\ \ b=k(k-1)/2
+        \end{displaymath}
+        \item If we could decide whether equation $\sum_{i,j\in[k]}a_{i,j}u_iu_j=b$ is satisfiable, then we have 
+        \begin{displaymath}
+        u_1=u_2=\ldots =u_k=1
+        \end{displaymath}
+        \item and $\{v_1,v_2,\ldots,v_k\}\subseteq\{v_1,v_2,\ldots,v_n\}$ to be a \textbf{clique} in $G$. Thus \textbf{QUADEQ} is NP-complete.
     \end{itemize}
 \end{proof}
 \newpage
@@ -209,7 +227,8 @@ In a typical auction of $n$ items, the auctioneer will sell the $i$th item to th
 \begin{proof}
     \leavevmode\newline
     \begin{itemize}
-        \item 
+        \item Given sets $S_{i_1},\ldots,S_{i_l}(l\leq m)$, we can calculate $\sum_{j=1}^lx_{i_j}$ in polynomial time $O(m)$ and compare to $k$. Also, we can check whether these sets are disjoint in $O(n*m)$ time. Thus, the problem is NP.
+        \item Then we reduce \textbf{independent set} problem to \textbf{combinatorial auction} problem. In graph $G$, all edges are marked from $1$ to $n$, where $n=|E|$. For each vertex $v_i\in V$, all edges connected to $v$ form set $S_i$. Suppose we could found disjoint sets $M=\{S_{i_1},\ldots,S_{i_l}\}$ such that $\sum_{j=1}^lx_{i_j}\geq k$, where $x_{i_j}=1$. Then we have $\sum_{j=1}^l1=|M|\geq k$, which is the number of disjoint edge sets. Thus we solve the independent set problem, and the reduction takes polynomial time. Thus, \textsf{COMBINATORIAL AUCTION} is NP-complete.
     \end{itemize}
 \end{proof}
 
