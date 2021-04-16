@@ -188,8 +188,39 @@ In the \textsf{MAX CUT} problem, we are given an undirected graph $G$ and an int
     \leavevmode\newline
     \begin{itemize}
         \item Given a set of vertices $S$, we can get the number of edges that have one endpoint in $S$ and one endpoint in $\bar{S}$ in $O(E)$ time by traversing all edges in $G$, and compare the number to $K$. Thus the \textbf{max cut} problem is NP.
-        \item We reduce \textbf{independent set} to \textbf{max cut} to prove NP-complete. 
-    \end{itemize}
+        \item We reduce \textbf{independent set} to \textbf{max cut} to prove NP-complete. For a graph $G=(V,E)$, we have $G'=(V',E')$ where
+        \begin{displaymath}
+            V'=V\cup \{x\}\cup \{[e,u],[e,v]|e=(u,v)\in E\}
+        \end{displaymath}
+        \begin{displaymath}
+            \left\{
+            \begin{aligned}
+                & E'=E_1\cup E_2& \\
+                & E_1=\{(x,v)\mid v\in V\}& \\
+                & E_2=\{(x,[e,u]),(x,[e,v]),([e,u],[e,v]),([e,u],u),([e,v],v)\mid e=(u,v)\in E\} & \\
+            \end{aligned}
+            \right.
+        \end{displaymath}
+        \begin{displaymath}
+            k'=k+4*|E|
+        \end{displaymath}
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{img/7.jpg}
+    \caption{Reduction from independent set to max cut}
+    \label{ttt}
+\end{figure}
+
+        \item We run \textbf{max cut} on $G'=(V',E')$, and find the subset of vertices $S'\subseteq V'$, such that for the set of edges $E_0\subseteq E'$ that have one endpoint in $S'$ and one endpoint in $\bar{S'}$, $|E_0|\geq k'$.
+        \item See Figure \ref{ttt}, for all edges in $E$, the added edges in $E_2$ can be $3$ or $4$, and
+        \begin{displaymath}
+            k+4*|E|-|E_0\cap E_1| \leq|E_0|-|E_0\cap E_1|=|E_2\cap E_0|\leq4*|E|
+        \end{displaymath}
+        \begin{displaymath}
+            \Rightarrow |E_0\cap E_1|\geq k \Rightarrow |E_0\cap E_1|=k+l,l\geq 0 
+        \end{displaymath}
+        \item Then we have $l$ edges $e\in E$ that added $3$ edges in $E_2$, which form $E_v\subseteq E$. Remove one of the endpoints of $e_v\in E_v$ from $V$, then we have $S\subseteq V$. We say $S$ is a independent set of $G$ and $|S|\geq k$, since no edge has more than one endpoints in $S$, and $|E_0\cap E_1|=k+l\Rightarrow |S|\geq k$.
+        \end{itemize}
 \end{proof}
 
 \newpage
@@ -209,7 +240,7 @@ Let \textsf{QUADEQ} be the language of all satisfiable sets of \textit{quadratic
                 0,\ &if\ (v_i,v_j)\notin E \\
                 1,\ &if\ (v_i,v_j)\in E \\
             \end{aligned}
-            \right.,\ \ b=k(k-1)/2
+            \right.,\ \ b=k(k-1)/2,\ \ 1\leq k\leq n
         \end{displaymath}
         \item If we could decide whether equation $\sum_{i,j\in[k]}a_{i,j}u_iu_j=b$ is satisfiable, then we have 
         \begin{displaymath}
