@@ -1,5 +1,6 @@
 THESIS1 = Assignment1
 THESIS2 = Assignment2
+THESIS3 = Assignment3
 # TEX, BIB, TEST dir
 TEX_DIR = tex
 BIB_DIR = bib
@@ -9,7 +10,7 @@ LATEXMK_OPT_BASE = -xelatex -gg -silent
 LATEXMK_OPT = $(LATEXMK_OPT_BASE) -f
 LATEXMK_OPT_PVC = $(LATEXMK_OPT_BASE) -pvc
 
-all: $(THESIS2).pdf
+all: $(THESIS3).pdf
 
 .PHONY : all cleanall pvc view wordcount git zip
 # *.bib elegantpaper.cls elegantpaper.cfg 
@@ -17,12 +18,16 @@ all: $(THESIS2).pdf
 1 : $(THESIS1).pdf
 
 2 : $(THESIS2).pdf
+3 : $(THESIS3).pdf
 
 $(THESIS1).pdf : $(THESIS1).tex Makefile
 	-pdflatex $(LATEXMK_OPT) $(THESIS1)
 
 $(THESIS2).pdf : $(THESIS2).tex Makefile
 	-pdflatex $(LATEXMK_OPT) $(THESIS2)
+
+$(THESIS3).pdf : $(THESIS3).tex Makefile
+	-pdflatex $(LATEXMK_OPT) $(THESIS3)
 
 clean :
 	-@latexmk -c -silent 2> /dev/null
