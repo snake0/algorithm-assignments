@@ -15,6 +15,8 @@
 \usepackage{epsfig}
 \usepackage{graphicx}
 \usepackage{subfigure}
+\usepackage{color}
+
 %\usepackage{ramacros}
 
 \addtolength{\textwidth}{20mm}
@@ -87,7 +89,7 @@ You are given a directed graph $G=(V,E)$ with weights we on its edges $e\in E$. 
 \begin{proof}
     \leavevmode\newline
     \begin{itemize}
-        \item The problem is NP since given a simple cycle in $G=(V,E)$, we can verify whether the sum of the edge weights on this cycle is exactly $0$ by adding all $|E|$ edge weights together, which costs $O(|E|)$ (polynomial) time.
+        \item The problem is NP since given a simple cycle in $G=(V,E)$, we can verify whether the sum of the edge weights on this cycle is exactly $0$ by adding all edge weights of cycle together, which costs $O(|E|)$ (polynomial) time.
         \item We reduce \textbf{subset-sum} problem to \textbf{zero-weight-cycle} problem, and since {subset-sum} problem is \textbf{NP}, zero-weight-cycle problem is \textbf{NP-complete}. For a set of number $a_i(i=1,\ldots ,n)$, decide whether there exists a subset whose sum is $0$.
         \item See Figure \ref{fig:ccc}, each vertex $u_i(i=1,\ldots ,n)$ has only one outgoing edge $u_i\rightarrow v_i$ with weight $a_i$, and each vertex $v_i(i=1,\ldots ,n)$ has $n$ outgoing edges to each $u_k(k=1,\ldots,n)$ with weight $0$. Any simple cycle in this graph has the form
         \item $u_{i_1}\rightarrow v_{j_1}\rightarrow u_{i_2}\rightarrow v_{j_2}\rightarrow \cdots \rightarrow u_{i_k}\rightarrow v_{j_k} \rightarrow u_{i_1}(1\leq k\leq n)$
@@ -232,22 +234,19 @@ Let \textsf{QUADEQ} be the language of all satisfiable sets of \textit{quadratic
 \end{exercise}
 \begin{proof}
     \leavevmode\newline
+    {\color{red} Updated!}
     \begin{itemize}
         \item Firstly, given $0/1$ variables $u_1,\ldots,u_n$, we can test whether equation $\sum_{i,j\in[n]}a_{i,j}u_iu_j=b$ holds in $O(n(n-1)/2)$ time. Thus, \textbf{QUADEQ} is NP.
-        \item Then we reduce \textbf{clique} to \textbf{QUADEQ}. In graph $G=(V,E),V=\{v_1,v_2,\ldots,v_n\}$, let
+        \item We reduce \textbf{3-SAT} to \textbf{QUADEQ} to prove QUADEQ is NP-complete. For each clause in 3-SAT's formula, if literal $x_i$ is positive, we have $u_i=y_i$, else we have $u_i=1-y_i$, and we set $a_i=1,b=1$. For example, equation
         \begin{displaymath}
-        a_{i,j}=\left\{
-            \begin{aligned}
-                0,\ &if\ (v_i,v_j)\notin E \\
-                1,\ &if\ (v_i,v_j)\in E \\
-            \end{aligned}
-            \right.,\ \ b=k(k-1)/2,\ \ 1\leq k\leq n
+            \sum_{i,j\in[n]}u_iu_j=y_1(1-y_2)+(1-y_2)y_3+y_3y_1=1
         \end{displaymath}
-        \item If we could decide whether equation $\sum_{i,j\in[k]}a_{i,j}u_iu_j=b$ is satisfiable, then we have 
+        \item corresponds to clause
         \begin{displaymath}
-        u_1=u_2=\ldots =u_k=1
+            x_1\vee \overline{x_2}\vee x_3
         \end{displaymath}
-        \item and $\{v_1,v_2,\ldots,v_k\}\subseteq\{v_1,v_2,\ldots,v_n\}$ to be a \textbf{clique} in $G$. Thus \textbf{QUADEQ} is NP-complete.
+        \item which means at least one variable is $1$, for example, $y_1(1-y_2)=1\Rightarrow y_1=1,y_2=0$. 
+        \item If $y_i=1$, then we set $x_i=True$, else $x_i=False$. Then clause $x_1\vee \overline{x_2}\vee x_3$ is $True$. Thus, if all clauses' equations are $True$, we the formula is satisfiable. This reduction takes polynomial time, so QUADEQ is NP-complete.
     \end{itemize}
 \end{proof}
 \newpage
