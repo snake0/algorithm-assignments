@@ -1,0 +1,221 @@
+\documentclass{article}
+\usepackage{times}
+\usepackage{a4wide}
+\usepackage{latexsym}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ifthen}
+\usepackage{stmaryrd}
+\usepackage{algorithm}
+%\usepackage{algorithmic}
+\usepackage{algpseudocode}
+\usepackage{graphics}
+\usepackage{epsfig}
+%\usepackage{ramacros}
+
+\addtolength{\textwidth}{20mm}
+\addtolength{\oddsidemargin}{-10mm}
+\addtolength{\textheight}{18mm}
+\addtolength{\topmargin}{-9mm}
+
+\newcounter{exercise}
+\setcounter{exercise}{0}
+\newcommand{\exercise}{
+        \addtocounter{exercise}{1}
+        \vspace{0.2in}
+        \noindent
+        {\bf \theexercise .}
+        }
+
+\newcommand{\REMARK}[1]{}
+
+
+\newcommand{\NEWPART}{\vspace{.1in}
+              \noindent}
+
+\newcommand{\<}{
+    \langle}
+
+\renewcommand{\>}{
+    \rangle}
+
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+\pagestyle{plain} \pagenumbering{arabic}
+
+\title{{\bf Assignment 4} \\ {\large ID: 120037910002 } {\large Name: Xingguo Jia } {\large Email: jiaxg1998@sjtu.edu.cn}}
+
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+%{\large \noindent
+%\begin{tabular}{lcl}
+%{Jan 17 2007}.
+%\end{tabular}
+%}
+
+{\large
+
+\begin{exercise}
+	Transform following problems into linear programming
+	
+	(1)
+		$$\begin{aligned}
+		&\text { maximize } & 5x+2y\\
+		&\text { subject to } & 0 \le x \le 20 \\
+		& & |x - y|\le 5
+		\end{aligned}$$
+		
+	(2)
+		$$\begin{aligned}
+		&\text { maximize }  & min(x1,x2,x3)\\
+		&\text { subject to }  & x1+x2+x3 = 15
+		\end{aligned}$$
+\end{exercise}
+
+\textbf{Solution:}
+\begin{itemize}
+    \item 
+    \item 
+\end{itemize}
+\newpage
+
+
+\begin{exercise}
+	Given a graph $G$, each vertex $v_i$ has a profit $p_i$ and each edge $e_{ij}$ has a cost $c_{ij}$. Define the profit of a cycle is the total profits of all the vertices in the cycle, and the cost of a cycle is the total costs of all the edges in the cycle. We need to find a simple cycle in $G$ which contains a given vertex $v_0$, and maximize the profit of it within the cost bound $B$. Write the linear programming formulation of this problem.
+\end{exercise}
+
+\textbf{Solution:}
+\begin{itemize}
+    \item 
+    \item 
+\end{itemize}
+\newpage
+
+
+
+
+\begin{exercise}
+	Consider the following optimization problem
+	$$\begin{aligned}
+		&\text { minimize } \quad f_{0}(\mathbf{x})\\
+		&\text { subject to } f_{i}(\mathbf{x}) \leq 0, \quad i=1, \ldots, m
+	\end{aligned}$$
+	with variable $\mathbf{x}=\left(x_{1}, \ldots, x_{n}\right) \in \mathbf{R}^{n} .$ Note that the program may not be linear. The Lagrangian
+	$L: \mathbf{R}^{n} \times \mathbf{R}^{m} \rightarrow \mathbf{R}$ associated with the program is defined as
+	$$
+	L(\mathbf{x}, \lambda)=f_{0}(\mathbf{x})+\sum_{i=1}^{m} \lambda_{i} f_{i}(\mathbf{x})
+	$$
+	where $\lambda=\left(\lambda_{1}, \ldots, \lambda_{m}\right) \in \mathbf{R}^{m}$
+	
+	Define the Lagrange dual function $g: \mathbf{R}^{m} \rightarrow \mathbf{R}$ as the minimum value of the Lagrangian over $x$ :
+	for $\lambda \in \mathbf{R}^{m}$,
+	$$
+	g(\lambda)=\inf _{\mathbf{x}} L(\mathbf{x}, \lambda)
+	$$
+	We write $\lambda \geq 0$ if $\lambda_{i} \geq 0$ for all $1 \leq i \leq m$ and let $p^{*}$ be the optimal value of original program.
+	
+	Show that:
+	$$
+	g(\lambda) \leq p^{*} , \text{ for every } \lambda \geq 0
+	$$
+\end{exercise}
+\textbf{Solution:}
+\begin{itemize}
+    \item 
+    \item 
+\end{itemize}
+\newpage
+
+
+
+	
+\begin{exercise}
+	Consider the following optimization problem
+	$$\begin{aligned}
+	&\text { maximize } g(\lambda)\\
+	&\text { subject to } \lambda \ge 0
+	\end{aligned}$$
+	Show that if the program in previous exercise is a linear program, then this program is its dual program.
+\end{exercise}
+
+\textbf{Solution:}
+\begin{itemize}
+    \item 
+    \item 
+\end{itemize}
+\newpage
+
+
+
+
+\begin{exercise}
+	Prove the complementary slackness property of linear programs.
+\end{exercise}
+
+\textbf{Solution:}
+\begin{itemize}
+    \item 
+    \item 
+\end{itemize}
+\newpage
+
+
+
+
+\begin{exercise}
+	Write the dual problem of:
+	$$\begin{aligned}
+	&\text { maximize } & c^Tx\\
+	&\text { subject to } & A_1x\le b_1 \\
+	& &A_2x \ge b_2 \\
+	& &A_3x = b_3
+	\end{aligned}$$
+\end{exercise}
+
+\textbf{Solution:}
+\begin{itemize}
+    \item 
+    \item 
+\end{itemize}
+\newpage
+
+
+	
+
+
+\begin{exercise}
+	Prove the König theorem: Let G be bipartite, then cardinality of maximum matching = cardinality of minimum vertex cover.
+\end{exercise}
+
+\textbf{Solution:}
+\begin{itemize}
+    \item 
+    \item 
+\end{itemize}
+\newpage
+
+
+
+\begin{exercise}
+	Show that the dual of the dual of a linear program is the primal linear program.
+\end{exercise}
+
+\textbf{Solution:}
+\begin{itemize}
+    \item 
+    \item 
+\end{itemize}
+\newpage
+
+
+	
+
+
+
+\end{document}
