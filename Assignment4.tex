@@ -79,10 +79,24 @@
 \end{exercise}
 
 \textbf{Solution:}
-\begin{itemize}
-    \item 
-    \item 
-\end{itemize}
+
+	(1)
+		$$\begin{aligned}
+		&\text { maximize } & 5x+2y\\
+		&\text { subject to } & x \le 20 \\
+		& & x \ge 0 \\
+		& & x - y\le 5 \\
+		& & x - y\ge -5 \\
+		\end{aligned}$$
+
+	(2)
+		$$\begin{aligned}
+		&\text { maximize }  & x1\\
+		&\text { subject to }  & x1+x2+x3 = 15 \\
+		& & x1\leq x2\\
+		& & x1\leq x3\\
+		\end{aligned}$$
+
 \newpage
 
 
@@ -92,9 +106,20 @@
 
 \textbf{Solution:}
 \begin{itemize}
-    \item 
-    \item 
+	\item We have $x_i$ for each $v_i\in V$, if $v_i$ is in the simple cycle, $x_i=1$, else $x_i=0$. We have $y_{ij}$ for each $e_{ij}\in E$, if $e_{ij}$ is in the simple cycle, $y_{ij}=1$, else $y_{ij}=0$.
 \end{itemize}
+
+	$$\begin{aligned}
+	&\text { maximize }  & \sum_{v_i\in V}{x_i*p_i} && \\
+	&\text { subject to }  & x_0 = 1 & & \\
+	& & x_i\leq 1,x_i\geq 0 & &v_i\in V\\
+	& & y_{ij}\leq 1,y_{ij}\geq 0 & &e_{ij}\in E\\
+	& & \sum_{e_{ij}\in E}{y_{ij}*c_{ij}}\leq B & & \\
+	& & \sum_{e_{ij}\in E}{y_{ij}}\geq 2x_{i} & & v_i\in V \\
+	& & \sum_{e_{ij}\in E}{y_{ij}}\leq 2 & & v_i\in V \\
+	& & x_i+x_j\geq 2y_{ij} & & e_{ij}\in E
+	\end{aligned}$$
+	
 \newpage
 
 
@@ -127,8 +152,10 @@
 \end{exercise}
 \textbf{Solution:}
 \begin{itemize}
-    \item 
-    \item 
+    \item Since $\lambda_{i}\geq 0$ and $f_{i}\leq 0$, we have 
+		$$\sum_{i=1}^{m}{\lambda_{i}f_i(x)}\leq 0$$.
+    \item Let $f_0(x^*)=p^*$, we have 
+		$$ g(\lambda)=\inf _{\mathbf{x}} L(\mathbf{x}, \lambda) \leq \mathbf{x^*} L(\mathbf{x^*}, \lambda) = f_0(x^*) + \sum_{i=1}^{m}{\lambda_{i}f_i(x)}\leq p^* $$
 \end{itemize}
 \newpage
 
@@ -146,8 +173,29 @@
 
 \textbf{Solution:}
 \begin{itemize}
-    \item 
-    \item 
+    \item We have 
+		$$ L(\mathbf{x}, \lambda) = c^{T}\mathbf{x}+\lambda_{1}^{T}(b-Ax)+\lambda_{2}^{T}*(-\mathbf{x}) $$
+		$$ = (c^{T}-\lambda_{1}^{T}A-\lambda_{2}^{T})\mathbf{x}+\lambda_{1}^{T}b$$
+		$$ =(c-A^{T}\lambda_{1}-\lambda_{2})^{T}*\mathbf{x}+\lambda_{1}b^{T} $$
+    \item Then 
+		\begin{equation} g(\lambda)=\inf _{\mathbf{x}} L(\mathbf{x}, \lambda) =
+		\begin{cases} 
+			\lambda_{1}b^{T}, & c-A^{T}\lambda_{1}-\lambda_{2}=0 \\ 
+			-\infty, &  otherwise
+		\end{cases} 
+		\end{equation}
+		\item Thus, the above problem can be transformed into 
+		$$\begin{aligned}
+		&\text { maximize } &\lambda_{1}b^{T}\\
+		&\text { subject to }& c-A^{T}\lambda_{1}-\lambda_{2}=0\\
+		& & \lambda_{1},\lambda_{2} \geq 0
+		\end{aligned}$$
+		\item which can be transformed into
+		$$\begin{aligned}
+			&\text { maximize } &\lambda_{1}b^{T}\\
+			&\text { subject to }& c-A^{T}\lambda_{1}\geq 0\\
+			& & \lambda_{1}\geq 0
+			\end{aligned}$$
 \end{itemize}
 \newpage
 
@@ -158,11 +206,55 @@
 	Prove the complementary slackness property of linear programs.
 \end{exercise}
 
-\textbf{Solution:}
-\begin{itemize}
-    \item 
-    \item 
-\end{itemize}
+\begin{proof}
+    The complementary slackness theorem is: Assume LP problem (P) has a solution $x^*$ and its dual problem (D) has a solution $y^*$.
+		\begin{itemize}
+			\item (1) If $x^{*}_j > 0$, then the $j$-th constraint in (D) is binding.
+			\item (2) If the $j$-th constraint in (D) is not binding, then $x^{*}_j = 0$.
+			\item (3) If $y^{*}_j > 0$, then the $i$-th constraint in (P) is binding.
+			\item (4) If the $i$-th constraint in (P) is not binding, then $y^{*}_j = 0$.
+			\item Suppose problem P is
+
+			$$\begin{aligned}
+			&\text { maximize } &\mathbf{c}^{T}\mathbf{x}\\
+			&\text { subject to }& \mathbf{Ax}\leq \mathbf{b}\\
+			& & \mathbf{x\geq 0}
+			\end{aligned}$$
+
+			\item and its dual problem D
+			$$\begin{aligned}
+			&\text { minimize } &\mathbf{y}^{T}\mathbf{b}\\
+			&\text { subject to }& \mathbf{y}^{T}\mathbf{A}\geq \mathbf{c}^T\\
+			& & \mathbf{y\geq 0}
+			\end{aligned}$$
+
+			\item Suppose $\mathbf{x^*}$ and $\mathbf{y^*}$ are the optimum solution of problem P and D, respectively. Then according to problem D, we have
+			$$
+			\mathbf{y*}^{T}\mathbf{A}\geq \mathbf{c}^T
+			$$
+			\item Since $\mathbf{x^*\geq 0}$, multiply $x^*$, we have
+			$$
+			\mathbf{y*}^{T}\mathbf{Ax^*}\geq \mathbf{c}^T\mathbf{x^*}
+			$$
+			\item According to problem P, we have
+			$$
+			\mathbf{y*}^{T}\mathbf{b} \geq \mathbf{y*}^{T}\mathbf{Ax^*}
+			$$
+			\item Then 
+			$$
+			\mathbf{y*}^{T}\mathbf{b} \geq \mathbf{y*}^{T}\mathbf{Ax^*}\geq \mathbf{c}^T\mathbf{x^*}
+			$$
+			\item According to the Strong Duality Theorem, we have
+			$$
+			\mathbf{y*}^{T}\mathbf{b} = \mathbf{y*}^{T}\mathbf{Ax^*} = \mathbf{c}^T\mathbf{x^*}
+			$$
+			\item which implies
+			$$
+			\mathbf{y*}^{T}\mathbf{(Ax^*-b)}=0,(\mathbf{y*}^{T}\mathbf{A}-\mathbf{c}^T)\mathbf{x^*}=0
+			$$
+			\item The former inequality implies (1),(2) of the complementary slackness property, the latter inequality implies (3),(4) of the complementary slackness property.
+		\end{itemize}
+\end{proof}
 \newpage
 
 
@@ -180,8 +272,21 @@
 
 \textbf{Solution:}
 \begin{itemize}
-    \item 
-    \item 
+    \item The problem can be rewritten as
+		$$\begin{aligned}
+			&\text { maximize } & c^T(x_1-x_2)\\
+			&\text { subject to } & A_1(x_1-x_2)\le b_1 \\
+			& &-A_2(x_1-x_2) \le -b_2 \\
+			& &A_3(x_1-x_2) \le b_3 \\ 
+			& &-A_3(x_1-x_2) \le -b_3 \\ 
+			& & x_1,x_2\geq 0
+			\end{aligned}$$
+    \item Then its dual is 
+		$$\begin{aligned}
+			&\text {minimize} & b_{1}^{T}y_1-b_{2}^Ty_2 + b_{3}^{T}y_3\\
+			&\text {subject to } & A_{1}^{T}y_1-A_{2}^{T}y_2+A_{3}^{T}y_3-A_{3}^{T}y_4=c^T\\
+			& & y_1,y_2,y_3,y_4\geq 0
+			\end{aligned}$$
 \end{itemize}
 \newpage
 
@@ -195,8 +300,19 @@
 
 \textbf{Solution:}
 \begin{itemize}
-    \item 
-    \item 
+    \item The maximum matching problem can be written as the following linear program
+		$$\begin{aligned}
+			&\text { maximize } &\sum_{e\in E}{x_e}&&\\
+			&\text { subject to }& \sum_{e=(u,v)\in E}x_{e}\leq 1, &&v\in V\\
+			& & {x_e\geq 0,}&&e\in E
+			\end{aligned}$$
+    \item Consider its dual LP
+		$$\begin{aligned}
+			&\text { minimize } &\sum_{v\in V}{y_v}&&\\
+			&\text { subject to }& y_u+y_v\geq 1, &&e=(u,v)\in E\\
+			& & {y_v\geq 0,}&&v\in V
+			\end{aligned}$$
+			\item Which means the minimum vertex cover problem. According to the Strong Duality Theorem, then $\textbf { minimize } \sum_{v\in V}{y_v} = \textbf { maximize } \sum_{e\in E}{x_e}$, we have cardinality of maximum matching = cardinality of minimum vertex cover.
 \end{itemize}
 \newpage
 
@@ -208,8 +324,43 @@
 
 \textbf{Solution:}
 \begin{itemize}
-    \item 
-    \item 
+    \item Suppose the problem P is
+		$$\begin{aligned}
+			&\text { maximize } &\mathbf{c}^{T}\mathbf{x}\\
+			&\text { subject to }& \mathbf{Ax}\leq \mathbf{b}\\
+			& & \mathbf{x\geq 0}
+			\end{aligned}$$
+    \item Then its dual problem D is
+		$$\begin{aligned}
+			&\text { minimize } &\mathbf{y}^{T}\mathbf{b}\\
+			&\text { subject to }& \mathbf{y}^{T}\mathbf{A}\geq \mathbf{c}^T\\
+			& & \mathbf{y\geq 0}
+			\end{aligned}$$
+		\item Transpose the above formula
+		$$\begin{aligned}
+			&\text { minimize } &\mathbf{b}^{T}\mathbf{y}\\
+			&\text { subject to }& \mathbf{A}^{T}\mathbf{y}\geq \mathbf{c}\\
+			& & \mathbf{y\geq 0}
+			\end{aligned}$$
+		\item which can be rewritten as 
+		$$\begin{aligned}
+			&\text { maximize } &-\mathbf{b}^{T}\mathbf{y}\\
+			&\text { subject to }& -\mathbf{A}^{T}\mathbf{y}\leq -\mathbf{c}\\
+			& & \mathbf{y\geq 0}
+			\end{aligned}$$
+		\item Then the dual problem of the above problem is
+		$$\begin{aligned}
+			&\text { minimize } &-\mathbf{c}^{T}\mathbf{z}\\
+			&\text { subject to }& -\mathbf{A}\mathbf{z}\geq -\mathbf{b}\\
+			& & \mathbf{z\geq 0}
+			\end{aligned}$$
+		\item Which can be rewritten as
+		$$\begin{aligned}
+			&\text { maximize } & \mathbf{c}^{T}\mathbf{z}\\
+			&\text { subject to }& \mathbf{A}\mathbf{z}\leq \mathbf{b}\\
+			& & \mathbf{z\geq 0}
+			\end{aligned}$$
+			\item Let $z=x$, then the above problem becomes problem P.
 \end{itemize}
 \newpage
 

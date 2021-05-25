@@ -1,0 +1,196 @@
+\documentclass{article}
+\usepackage{times}
+\usepackage{a4wide}
+\usepackage{latexsym}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ifthen}
+\usepackage{stmaryrd}
+\usepackage{algorithm}
+%\usepackage{algorithmic}
+\usepackage{algpseudocode}
+\usepackage{graphics}
+\usepackage{epsfig}
+%\usepackage{ramacros}
+
+\addtolength{\textwidth}{20mm}
+\addtolength{\oddsidemargin}{-10mm}
+\addtolength{\textheight}{18mm}
+\addtolength{\topmargin}{-9mm}
+
+\newcounter{exercise}
+\setcounter{exercise}{0}
+\newcommand{\exercise}{
+        \addtocounter{exercise}{1}
+        \vspace{0.2in}
+        \noindent
+        {\bf \theexercise .}
+        }
+
+\newcommand{\REMARK}[1]{}
+
+
+\newcommand{\NEWPART}{\vspace{.1in}
+              \noindent}
+
+\newcommand{\<}{
+    \langle}
+
+\renewcommand{\>}{
+    \rangle}
+
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+\pagestyle{plain} \pagenumbering{arabic}
+
+\title{{\bf Assignment 5} \\ {\large ID: 120037910002 } {\large Name: Xingguo Jia } {\large Email: jiaxg1998@sjtu.edu.cn}}
+
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+%{\large \noindent
+%\begin{tabular}{lcl}
+%{Jan 17 2007}.
+%\end{tabular}
+%}
+
+{\large
+
+\begin{exercise}
+Use layering to get a factor $f$ approximation algorithm for set cover,
+where $f$ is the frequency of the most frequent element. Provide a tight example
+for this algorithm.
+
+\end{exercise}
+
+\textbf{Solution:}
+\begin{itemize}
+	\item
+	\item
+\end{itemize}
+\newpage
+
+\begin{exercise}
+	Let $G = (V, E)$ be an undirected graph with nonnegative edge costs. $S$, the senders and $R$, the receivers, are disjoint subsets of $V$. The problem is to find a minimum cost subgraph of $G$ such that for every receiver $r$ in $R$, there is at least one sender $s$ in $S$ such that there is a path connecting $r$ to $s$ in the subgraph. Give a factor $2$ approximation algorithm that runs in polynomial time.
+\end{exercise}
+
+\textbf{Solution:}
+\begin{itemize}
+	\item
+	\item
+\end{itemize}
+\newpage
+
+
+
+
+\begin{exercise}
+	\textbf{(Bin Packing)} Consider a more restricted algorithm than First-Fit, called Next-Fit, which tries to pack the next item only in the most recently started bin. If it does not fit, it is packed in a new bin. Show that this algorithm also achieves factor $2$. Give a factor $2$ tight example.
+\end{exercise}
+
+\textbf{Solution:}
+\begin{itemize}
+	\item
+	\item
+\end{itemize}
+\newpage
+
+
+
+\begin{exercise}
+	\textbf{(Hamilton cycle)} Given an undirected complete graph, each edge is assigned with a nonnegative cost by the function $c$ (eg. the cost for edge $(u,v)$ is $c(u,v)$). Find a Hamilton cycle with the largest cost by the greedy approach, and prove the guarantee factor is $2$.
+\end{exercise}
+
+\textbf{Solution:}
+\begin{itemize}
+	\item
+	\item
+\end{itemize}
+\newpage
+
+
+
+
+\begin{exercise}
+	Given a directed graph $G=(V,E)$, we need to pick a maximum cardinality set of edges from $E$ so that the resulting subgraph is acyclic. Find a factor $\frac{1}{2}$ approximate algorithm for this problem.
+\end{exercise}
+
+\textbf{Solution:}
+\begin{itemize}
+	\item
+	\item
+\end{itemize}
+\newpage
+
+
+
+
+
+\begin{exercise}
+	\textbf{(Knapsack)} Given a set $S = \{a_1, ... , a_n\}$ of objects, with specified non-negative weights and profits, $w_i,p_i$ respectively, and a "knapsack capacity" $B (w_i \le B)$, find a subset of objects whose total weight is bounded by $B$ and total profit is maximized.
+	
+	1. Consider two types of greedy algorithms for the knapsack problem. Sort the objects by decreasing \textbf{ratio of profit to weight} or only by \textbf{profit}, and then greedily pick objects in this order. Show that these two algorithms can be made to perform arbitrarily badly.
+	
+	2. Combining these two greedy algorithm, pick the more profitable solution in these two algorithms' results. Show that this algorithm achieves an approximation factor of $2$.
+\end{exercise}
+
+\textbf{Solution:}
+\begin{itemize}
+	\item
+	\item
+\end{itemize}
+\newpage
+
+
+
+
+\begin{exercise}
+	\textbf{(Maximum Cut)} Given an undirected graph $G=(V,E)$, the \textit{cardinality maximum cut problem} asks for a partition of $V$ into sets $S$ and $\bar{S}$ so that the number of edges running between these sets is maximized. Find a factor $2$ approximation algorithm for this problem.
+\end{exercise}
+
+\textbf{Solution:}
+\begin{itemize}
+	\item
+	\item
+\end{itemize}
+\newpage
+
+
+
+
+\begin{exercise}
+	Consider the following problem: Given an undirected graph and compute the number of matchings (not the cardinality of a single matching, but the number of different ways of matching) in the graph . Show that if we have an $\alpha$-approximation algorithm for it for some constant $\alpha$, then we also have a PTAS.
+\end{exercise}
+
+\textbf{Solution:}
+\begin{itemize}
+	\item
+	\item
+\end{itemize}
+\newpage
+
+
+
+
+\begin{exercise}
+	Let $G$ be a complete undirected graph in which all edge lengths are either $1$ or $2$. Note, that edge lengths satisfy the triangle inequality. Give a factor $4/3$ approximation algorithm for the TSP in this special class of graphs.
+	
+	Hint: A $2$-matching in a graph $G$ is a subset of edges $M$, such that every vertex is incident to exactly $2$ edges of $M$. A minimum cost $2$-matching can be computed in polynomial time.
+\end{exercise}
+
+\textbf{Solution:}
+\begin{itemize}
+	\item
+	\item
+\end{itemize}
+\newpage
+
+
+
+
+\end{document}
