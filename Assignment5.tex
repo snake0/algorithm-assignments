@@ -60,6 +60,8 @@
 %}
 
 {\large
+Note: in this assignment, we use $m$ to denote the object function value achieved by the \textbf{approximation algorithm} and $m^*$ to denote $OPT$.
+\newline
 
 \begin{exercise}
 Use layering to get a factor $f$ approximation algorithm for set cover,
@@ -68,11 +70,44 @@ for this algorithm.
 
 \end{exercise}
 
-\textbf{Solution:}
+\textbf{Algorithm:}
+Suppose $I={S_1,S_2,\ldots,S_n}$ are the subsets of $E$, $C\leftarrow \phi,i\leftarrow 0$,$E_0\leftarrow E$
+\begin{enumerate}
+	\item Move all empty sets from $I_i$ to $D_i$
+	\item Let $c=min\{w(S)/|S|\}$ for all $S\in I_i$
+	\item $t_i(S)=c*|S|,w(S)\leftarrow w(S)-t_i(S)$ for all $S\in I_i$
+	\item $W_i\leftarrow \{S\in I_i \mid w(S)=0\},C\leftarrow C\cup W_i$
+	\item $I_{i+1}\leftarrow I_{i}-(D_i\cup W_i), E_{i+1}\leftarrow E_{i}-(D_i\cup W_i)$
+	\item $i\leftarrow i+1$, repeat step 2
+\end{enumerate}
 \begin{itemize}
-	\item
-	\item
+	\item We prove that if $w(S)/|S|=c$ for all $S\in I_i$, then $w(I)\leq f*OPT$. We have
+	$$
+	|E|\leq \sum_{S_i\in U}{|S_i|} \Rightarrow c|E|\leq c\sum_{S_i\in U}{|S_i|}=OPT
+	$$
+	\item and
+	$$
+	\sum_{S_i\in I}{|S_i|}\leq f*|E|\Rightarrow c*\sum_{S_i\in I}{|S_i|}\leq c*f*|E|\leq f*OPT
+	$$
+	\item Then we prove this is an $f$ approximation algorithm for set cover. We have
+	$$
+	w(C)=\sum_{i=0}^{k-1}{t_i(C\cap I_i)}\leq f*\sum_{i=0}^{k-1}{t_i(U\cap I_i)}\leq f*w(U)=f*OPT
+	$$
+	\item Tight example:
+	$$
+	E=\{e_1,e_2,\ldots,e_n\},i=\{S_1,S_2,\ldots,S_f\}
+	$$
+	\item where
+	$$
+	S_i=E,w(S_i)=1,i=1,\ldots,f
+	$$
+	\item The algorithm would choose all $S_i\in I$, which has weight $m=f$. Optimal solution is $m^*=1$, Thus
+	$$
+	\frac{m}{m^*}=f
+	$$
 \end{itemize}
+
+
 \newpage
 
 \begin{exercise}
@@ -81,8 +116,9 @@ for this algorithm.
 
 \textbf{Solution:}
 \begin{itemize}
-	\item
-	\item
+	\item Add a vertex $v$ and edges $(v,s)$ for all $s\in S$ with cost $0$, and we get graph $G'$.
+	\item Run MST-based algorithm on $G'$ where $\{v\}\cup R$ is the required set of vertices, and the result is tree $T'$. We remove vertex $v$ from $T'$ and get $T$. For any $r\in R$, since there is a path connecting $r$ and $v$ in $T$ and this path must go through some $s\in S$, there is a path connecting $r$ and some $s\in S$.
+	\item Thus, $T$ is a subgraph of $G$ such that for every receiver $r$ in $R$, there is at least one sender $s$ in $S$ such that there is a path connecting $r$ to $s$ in the $T$, which is a factor $2$ approximation.
 \end{itemize}
 \newpage
 
@@ -95,8 +131,24 @@ for this algorithm.
 
 \textbf{Solution:}
 \begin{itemize}
-	\item
-	\item
+	\item Suppose we use $N$ bins by the Next-Fit algorithm, and each bin has $0\leq A_i\leq 1\ (i=1,\ldots ,N)$ amount of item.
+	\item Consider two adjacent bins $j$ and $j+1\ (1\leq j\leq N-1)$, we have
+	$$
+	A_j + A_{j+1}>1
+	$$
+	\item Thus we have
+	$$
+	2*OPT\geq 2*\sum{A_i}=A_1+\sum\limits_{j=1}^{N-1}{(A_j + A_{j+1})}+A_N>\sum\limits_{j=1}^{N-1}{(A_j + A_{j+1})}>N-1
+	$$
+	\item Which implies $2*OPT\geq N$.
+	\item Tight Example: let $0<\epsilon\leq \frac{1}{n}$, we have $2*n$ items
+	$$
+	A_{2i-1}=2\epsilon,A_{2i}=1-\epsilon,i=1,\ldots,n
+	$$
+	\item Run the Next-Fit algorithm, we need $m=2n$ bins, but actually, we put $A_{2i-1},i=1,\ldots,n$ all in one bin, and each $A_{2i}$ in one bin, we get $m^*=n+1$ bins. Let $n\rightarrow +\infty$, we have 
+	$$
+	\frac{m}{m^*}=2
+	$$.
 \end{itemize}
 \newpage
 
@@ -107,9 +159,42 @@ for this algorithm.
 \end{exercise}
 
 \textbf{Solution:}
+
+\begin{algorithm}[htb]
+\caption{Greedy-Algorithm for MAX Hamilton cycle}
+\begin{algorithmic}[1]
+\State Choose a random vertex $v\in V$, let
+\State $C\leftarrow \{v\}$
+\While{$|C|<|V|$}
+	\State $C\leftarrow C\cup {v_m}$, s.t. $c(v,v_m)\geq c(v,v_i)$, $\forall v_i\in V$
+	\State $v\leftarrow v_m$
+\EndWhile
+\State
+\Return $C$
+\end{algorithmic}
+\end{algorithm}
+
 \begin{itemize}
-	\item
-	\item
+	\item We prove Algorithm 1 has a guarantee factor of $2$. Let 
+	$$
+	C=v_{1}v_{2}\ldots v_{|V|}
+	$$
+	\item and the optimal solution is 
+	$$
+	O=v_{t_1}v_{t_2}\ldots v_{t_{|V|}}
+	$$
+	\item For $1\leq i\leq |V|-1$, we have
+	$$
+	c(v_{t_i},v_{t_{i+1}})\leq max\{c(v_{t_i},v_{t_i+1}),c(v_{t_{i+1}},v_{t_{i+1}+1})\}
+	\leq c(v_{t_i},v_{t_i+1})+c(v_{t_{i+1}},v_{t_{i+1}+1})
+	$$
+	\item Thus
+	$$
+	m=\sum{c(v_i,v_{i+1})}=\sum{c(v_{t_i},v_{t_i+1})} = 
+	$$
+	$$
+	\frac{1}{2}*\sum{(c(v_{t_i},v_{t_i+1}) + c(v_{t_{i+1}},v_{t_{i+1}+1}))}\geq \frac{1}{2}*\sum{c(v_{t_i},v_{t_{i+1}})}=\frac{1}{2}*m^*=\frac{1}{2}*OPT
+	$$
 \end{itemize}
 \newpage
 
@@ -122,8 +207,14 @@ for this algorithm.
 
 \textbf{Solution:}
 \begin{itemize}
-	\item
-	\item
+	\item Assign a unique integer $f(v_i)$ for each vertex $v_i\in V$. For each edge $(v_i, v_j)\in E$, it is in either of the two sets:
+	$$
+	A=\{(v_i, v_j)\mid(v_i, v_j)\in E, f(v_i)>f(v_j)\}, B=\{(v_i, v_j)\mid(v_i, v_j)\in E, f(v_i)<f(v_j)\}
+	$$
+	\item There is no cycle in $A$ or $B$. WLOG, $|A|\geq |B|$. Let $A$ be the result, then we have
+	$$
+	m=|A|=\frac{|A|}{2}+\frac{|A|}{2}\geq\frac{|A|}{2}+\frac{|B|}{2}=\frac{|E|}{2}=\frac{m^*}{2}
+	$$
 \end{itemize}
 \newpage
 
@@ -141,8 +232,39 @@ for this algorithm.
 
 \textbf{Solution:}
 \begin{itemize}
-	\item
-	\item
+	\item Let $\epsilon$ be an arbitrarily small number, and $n$ be an arbitrarily large number.
+	\item \textbf{(ratio of profit to weight)} 
+	$$
+	(w_1,p_1)=(2\epsilon,3\epsilon),(w_2,p_2)=(B-\epsilon,B-\epsilon)
+	$$
+	\item The algorithm would choose the first item but cannot choose the second item, which has an approximation factor of 
+	$$
+	\frac{m}{m^*}=\frac{3\epsilon}{B-\epsilon}\rightarrow 0
+	$$
+	\item \textbf{(profit)} 
+	$$
+	(w_1,p_1)=(\epsilon,B-\epsilon),(w_2,p_2)=(\epsilon,B-\epsilon),\ldots,(w_n,p_n)=(\epsilon,B-\epsilon),(w_{n+1},p_{n+1})=(B,B)
+	$$
+	\item Then the algorithm would choose the last item, which has an approximation factor of
+	$$
+	\frac{m}{m^*}=\frac{B}{n*(B-\epsilon)}= \frac{1}{n*(1-\frac{\epsilon}{B})}\rightarrow 0
+	$$
+	\item By combining the two algorithms, we mean running the both two algorithms on the same data, and get the more profitable result. Sort the items by \textbf{ratio of profit to weight} and we have $k$ where
+	$$
+	\sum_{i=1}^{k}{w_i}\leq B, \sum_{i=1}^{k+1}{w_i}> B
+	$$
+	\item Since the first $k+1$ items has the highest ratio of profit to weight and its weight sum is greater than $B$, then
+	$$
+	\sum_{i=1}^{k+1}{p_i}> OPT
+	$$
+	\item Then we have
+	$$
+	m_{combined}=max\{m_{ratio},m_{profit}\}\geq \frac{m_{ratio}+m_{profit}}{2}
+	$$
+	$$
+	=\frac{\sum_{i=1}^{k}{p_i}+m_{profit}}{2}\geq \frac{\sum_{i=1}^{k}{p_i}+p_{k+1}}{2}>\frac{OPT}{2}
+	$$
+
 \end{itemize}
 \newpage
 
@@ -154,9 +276,39 @@ for this algorithm.
 \end{exercise}
 
 \textbf{Solution:}
+
+\begin{algorithm}[htb]
+\caption{Greedy-Algorithm for Maximum Cut}
+	\begin{algorithmic}[1]
+		\State Define $d(S,T)=|\{(u,v)\mid u\in S, v\in T\}|$
+		\State $n=|V|$
+		\State $S_0\leftarrow \phi, T_0\leftarrow \phi$
+		\For{$v_i\in V,i=1,\ldots,n$}
+			\State $S_i\leftarrow S_{i-1}$
+			\State $T_i\leftarrow T_{i-1}$
+			\If{$d(\{v_i\},S_i)>d(\{v_i\},T_i)$}
+			\State $T_i\leftarrow T_i\cup \{v_i\}$
+			\Else
+			\State $S_i\leftarrow S_i\cup \{v_i\}$
+			\EndIf
+		\EndFor
+		\State
+		\Return cut $S_n,T_n$
+	\end{algorithmic}
+\end{algorithm}
+
 \begin{itemize}
-	\item
-	\item
+	\item We prove Algorithm 2 has approximation factor $2$. Since every time we add a new vertex to $S_i$ or $T_i$, we add
+	$$
+	max\{d(\{v_i\},S_i), d(\{v_i\},T_i)\}
+	$$
+	\item number of edges running between $S_n$ and $T_n$. Thus we have
+	$$
+	2m=2\sum_{i=1}^{n}{max\{d(\{v_i\},S_i), d(\{v_i\},T_i)\}}\geq \sum_{i=1}^{n}{(d(\{v_i\},S_i)+ d(\{v_i\},T_i))}=|E|\geq OPT=m^*
+	$$
+	$$
+	\Rightarrow \frac{m^*}{m}\leq 2
+	$$
 \end{itemize}
 \newpage
 
@@ -164,13 +316,30 @@ for this algorithm.
 
 
 \begin{exercise}
-	Consider the following problem: Given an undirected graph and compute the number of matchings (not the cardinality of a single matching, but the number of different ways of matching) in the graph . Show that if we have an $\alpha$-approximation algorithm for it for some constant $\alpha$, then we also have a PTAS.
+	Consider the following problem: Given an undirected graph and compute the number of matchings (not the cardinality of a single matching, but the number of different ways of matching) in the graph. Show that if we have an $\alpha$-approximation algorithm for it for some constant $\alpha$, then we also have a PTAS.
 \end{exercise}
 
 \textbf{Solution:}
 \begin{itemize}
-	\item
-	\item
+	\item Based on the $\alpha$-approximation algorithm $f$, we design the following algorithm. We have
+	$$
+	\frac{1}{\alpha}*OPT(G)\leq f(G)\leq \alpha*OPT(G)
+	$$
+	\item First, transform $G$ to $G'=kG$, where $G'$ has $k$ graph $G$s with no edges between them. Then run algorithm $f$ on $G'$, we have
+	$$
+	\frac{1}{\alpha}*OPT(kG)\leq f(kG)\leq \alpha*OPT(kG), \alpha>1
+	$$
+	$$
+	\Rightarrow \frac{1}{\alpha}*OPT(G)^k\leq f(kG)\leq \alpha*OPT(G)^k
+	$$
+	$$
+	\Rightarrow \frac{1}{\sqrt[k]{\alpha}}*OPT(G)\leq \sqrt[k]{f(kG)}\leq \sqrt[k]{\alpha}*OPT(G)
+	$$
+	\item Let $k\rightarrow +\infty$, then 
+	$$
+	\frac{1}{\sqrt[k]{\alpha}}\rightarrow 1,\sqrt[k]{\alpha}\rightarrow 1
+	$$
+	\item and  we get a PTAS algorithm $f_1(G)=\sqrt[k]{f(kG)}$.
 \end{itemize}
 \newpage
 
@@ -185,8 +354,15 @@ for this algorithm.
 
 \textbf{Solution:}
 \begin{itemize}
-	\item
-	\item
+	\item We have the following algorithm: run minimum cost $2$-matching algorithm on $G$ and get minimum cost $2$-matching $M$. Suppose $M$ consists of $n$ cycles. We remove one edge from each cycle and connect them to be one cycle $M'$ and return $M'$. This runs in polynomial time.
+	\item First, since the minimum size of each cycle in $M$ is $3$, we have
+	$$
+	n\leq \lfloor|V|/3\rfloor 
+	$$
+	\item Then
+	$$
+	m=C(M')\leq C(M)+n\leq OPT+\lfloor|V|/3\rfloor \leq OPT+OPT/3=\frac{4}{3}*OPT
+	$$
 \end{itemize}
 \newpage
 
